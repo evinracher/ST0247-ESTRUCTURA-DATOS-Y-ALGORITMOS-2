@@ -35,16 +35,13 @@ public class DigraphAL extends Digraph {
     }
     
     public int getWeight(int source, int destination) {
-	System.out.println("Mirando fuente: " + graph.get(source) );
-	if(graph.get(source) != null){
-	    System.out.println("Mirando Destino: "+ graph.get(source).get(destination));
-	    if(graph.get(source).get(destination) != null){
-		System.out.println("Proff"+graph.get(source).get(destination).second);
-		return 0;
+	if(graph.contains(source)){
+	    if(graph.get(source).contains(destination)){
+		return graph.get(source).get(destination).second;
 	    }else
-		return 1000;
+		return 0;
 	}
-	return 10000;
+	return 0;
     }
     
 }
