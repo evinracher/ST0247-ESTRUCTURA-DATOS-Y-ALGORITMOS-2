@@ -7,7 +7,7 @@ import java.util.HashSet;
  * documento.
  * 
  * Ejecute esta clase luego de completar las clases DigraphAL y DigraphAM para
- * tener una idea de si su implementación está correcta.
+ * tener una idea de si su implementacion esta correcta.
  * 
  * @author Mateo Agudelo
  */
@@ -19,27 +19,28 @@ public class Test {
 
 	public static void main(String[] args) {
 		edges = fillEdges();
-
+		/**
 		DigraphAM gMatrix = new DigraphAM(SIZE);
 		fillGraph(gMatrix);
 		System.out.println("DigraphAM (Matriz de Adyacencia):");
 		System.out.println("    getWeight() -> " + convert(testWeight(gMatrix)));
-		System.out.println("    getSuccesors() -> " + convert(testSuccesors(gMatrix)));
+		System.out.println("    getSuccesors() -> " + convert(testSuccesors(gMatrix)));**/
 
 		DigraphAL gList = new DigraphAL(SIZE);
+		System.out.println("TamaÃ±o del arreglo " + gList.size());
 		fillGraph(gList);
 		System.out.println("DigraphAL (Listas de Adyacencia):");
 		System.out.println("    getWeight() -> " + convert(testWeight(gList)));
 		System.out.println("    getSuccesors() -> " + convert(testSuccesors(gList)));
 
-		System.out.println("Recorridos:");
+		/**	System.out.println("Recorridos:");
 		System.out.println("    DFS -> " + convert(testDFS(gList, gMatrix)));
 		System.out.println("    BFS -> " + convert(testBFS(gList, gMatrix)));
 
 		caminos = fillCaminos();
 		System.out.println("Hay Camino:");
 		System.out.println("    DFS -> " + convert(testHayCaminoDFS(gList, gMatrix)));
-		System.out.println("    BFS -> " + convert(testHayCaminoBFS(gList, gMatrix)));
+		System.out.println("    BFS -> " + convert(testHayCaminoBFS(gList, gMatrix)));**/
 	}
 
 	static HashSet<Pair<Integer, Integer>> fillEdges() {
@@ -57,60 +58,66 @@ public class Test {
 	}
 
 	static boolean fillGraph(Digraph g) {
+	    System.out.println("LLENANDO GRAFO");
 		if (edges == null || g == null)
 			return false;
-		for (Pair<Integer, Integer> p : edges)
-			g.addArc(p.first, p.second, 1);
+		for (Pair<Integer, Integer> p : edges){
+		    System.out.println("fuente: "+p.first+"\ndestino: "+p.second);
+		    g.addArc(p.first, p.second, 1);
+		}
 		return true;
 	}
 
 	static boolean testWeight(Digraph g) {
 		int w;
-		for (int i = 0; i < SIZE; ++i)
-			for (int j = 0; j < SIZE; ++j) {
-				w = g.getWeight(i, j);
-				if (edges.contains(Pair.makePair(i, j))) {
-					if (w != 1)
+		for (int i = 0; i < SIZE; ++i){
+		    for (int j = 0; j < SIZE; ++j) {
+			System.out.println("Searching for weight");
+			w = g.getWeight(i, j);		
+			if (edges.contains(Pair.makePair(i, j))) {
+			    if (w != 1)
+					return false;
+			} else {
+			    if (w != 0)
 						return false;
-				} else {
-					if (w != 0)
-						return false;
-				}
 			}
-		return true;
+		    }
+		}
+		    return true;
+		
 	}
-
-	static boolean testSuccesors(Digraph g) {
-		if (g.getSuccessors(0) != null)
+    
+    static boolean testSuccesors(Digraph g) {
+	if (g.getSuccessors(0) != null)
+	    return false;
+	if (g.getSuccessors(1) != null)
+	    return false;
+	if (g.getSuccessors(2) != null)
+	    return false;
+	if (!g.getSuccessors(3).equals(new ArrayList<Integer>(Arrays.asList(8, 10))))
 			return false;
-		if (g.getSuccessors(1) != null)
+	if (g.getSuccessors(4) != null)
+	    return false;
+	if (!g.getSuccessors(5).equals(new ArrayList<Integer>(Arrays.asList(11))))
 			return false;
-		if (g.getSuccessors(2) != null)
-			return false;
-		if (!g.getSuccessors(3).equals(new ArrayList<Integer>(Arrays.asList(8, 10))))
-			return false;
-		if (g.getSuccessors(4) != null)
-			return false;
-		if (!g.getSuccessors(5).equals(new ArrayList<Integer>(Arrays.asList(11))))
-			return false;
-		if (g.getSuccessors(6) != null)
-			return false;
-		if (!g.getSuccessors(7).equals(new ArrayList<Integer>(Arrays.asList(8, 11))))
-			return false;
+	if (g.getSuccessors(6) != null)
+	    return false;
+	if (!g.getSuccessors(7).equals(new ArrayList<Integer>(Arrays.asList(8, 11))))
+	    return false;
 		if (!g.getSuccessors(8).equals(new ArrayList<Integer>(Arrays.asList(9))))
-			return false;
+		    return false;
 		if (g.getSuccessors(9) != null)
-			return false;
+		    return false;
 		if (g.getSuccessors(10) != null)
-			return false;
+		    return false;
 		if (!g.getSuccessors(11).equals(new ArrayList<Integer>(Arrays.asList(2, 9, 10))))
 			return false;
 		return true;
-	}
+    }
 
-	static boolean testDFS(DigraphAL gList, DigraphAM gMatrix) {
-		ArrayList<ArrayList<Integer>> dfs = new ArrayList<>(SIZE);
-		dfs.add(0, null);
+    static boolean testDFS(DigraphAL gList, DigraphAM gMatrix) {
+	ArrayList<ArrayList<Integer>> dfs = new ArrayList<>(SIZE);
+	dfs.add(0, null);
 		dfs.add(1, null);
 		dfs.add(2, null);
 		dfs.add(3, new ArrayList<Integer>(Arrays.asList(3, 8, 9, 10)));
@@ -238,9 +245,9 @@ public class Test {
 
 		return true;
 	}
-
+    
 	static String convert(boolean b) {
-		return b ? "correcta" : "incorrecta";
+	    return b ? "correcta" : "incorrecta";
 	}
-
+    
 }

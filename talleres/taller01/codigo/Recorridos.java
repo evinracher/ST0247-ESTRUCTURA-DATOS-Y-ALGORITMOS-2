@@ -11,6 +11,7 @@ public class Recorridos {
 	public static ArrayList<Integer> dfs(Digraph g, int start) {
 		// complete...
 		// recuerde: null para nodos aislados!
+	    return null;
 	}
 
 	// recomendado
@@ -21,14 +22,17 @@ public class Recorridos {
 	public static ArrayList<Integer> bfs(Digraph g, int start) {
 		// complete...
 		// recuerde: null para nodos aislados!
+	    return null;
 	}
 
 	public static boolean hayCaminoDFS(Digraph g, int i, int j) {
 		// complete...
+	    return false;
 	}
 
 	public static boolean hayCaminoBFS(Digraph g, int i, int j) {
 		// complete...
+	    return false;
 	}
 
 }

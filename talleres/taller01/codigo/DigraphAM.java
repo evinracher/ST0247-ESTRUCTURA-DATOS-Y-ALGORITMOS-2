@@ -21,10 +21,12 @@ public class DigraphAM extends Digraph {
 	public ArrayList<Integer> getSuccessors(int vertex) {
 		// complete...
 		// recuerde: null si no hay!
+	    return null;
 	}
 
 	public int getWeight(int source, int destination) {
 		// complete...
+	    return 0;
 	}
 
 }
