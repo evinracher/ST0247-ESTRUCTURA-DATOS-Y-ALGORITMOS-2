@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class DigraphAM extends Digraph {
 	private int [][] grafo;
-
 	public DigraphAM(int size) {
 		super(size);
 		grafo = new int [size][size];
@@ -44,12 +43,11 @@ public class DigraphAM extends Digraph {
 			}
 			System.out.println();
 		}
-
 	}
 
 	public static void main(String[] args)
 	{
-		DigraphAM grafo1 = new DigraphAM(8);
+		DigraphAM grafo1 = new DigraphAM(12);
 		grafo1.addArc(5, 11, 1);
 		grafo1.addArc(7, 8, 1);
 		grafo1.addArc(7, 11, 1);
