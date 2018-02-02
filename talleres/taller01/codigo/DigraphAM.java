@@ -1,3 +1,5 @@
+package taller01;
+
 import java.util.ArrayList;
 
 /**
@@ -26,6 +28,10 @@ public class DigraphAM extends Digraph {
 				successors.add(i);
 			}
 		}
+
+		if(successors.isEmpty()){
+		    return null;
+		}
 		return successors;
 	}
 
@@ -39,7 +45,7 @@ public class DigraphAM extends Digraph {
 		{
 			for(int j = 0; j < size; j++)
 			{
-				System.out.print(grafo[i][j]);
+				System.out.print(grafo[i][j]+" ");
 			}
 			System.out.println();
 		}

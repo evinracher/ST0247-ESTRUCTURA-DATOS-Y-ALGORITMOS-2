@@ -1,3 +1,5 @@
+package taller01;
+
 import java.util.ArrayList;
 
 /**
@@ -9,7 +11,6 @@ public abstract class Digraph {
 	protected int size;
 
 	public Digraph(int vertices) {
-	    System.out.println("Tamaño en DIGRAPH: "+ vertices);
 		size = vertices;
 	}
 

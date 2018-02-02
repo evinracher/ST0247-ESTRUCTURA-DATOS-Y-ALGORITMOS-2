@@ -22,13 +22,12 @@ public class Test {
 
     public static void main(String[] args) {
         edges = fillEdges();
-        /**
-         * DigraphAM gMatrix = new DigraphAM(SIZE); fillGraph(gMatrix);
-         * System.out.println("DigraphAM (Matriz de Adyacencia):");
-         * System.out.println(" getWeight() -> " +
-         * convert(testWeight(gMatrix))); System.out.println(" getSuccesors() ->
-         * " + convert(testSuccesors(gMatrix)));*
-         */
+
+        DigraphAM gMatrix = new DigraphAM(SIZE);
+        fillGraph(gMatrix);
+        System.out.println("DigraphAM (Matriz de Adyacencia):");
+        System.out.println(" getWeight() -> " + convert(testWeight(gMatrix)));
+        System.out.println(" getSuccesors() ->" + convert(testSuccesors(gMatrix)));
 
         DigraphAL gList = new DigraphAL(SIZE);
         fillGraph(gList);
@@ -72,9 +71,8 @@ public class Test {
         return true;
     }
 
-    static boolean testWeight(DigraphAL g) {
+    static boolean testWeight(Digraph g) {
         int w;
-        g.print();
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 w = g.getWeight(i, j);
@@ -105,8 +103,8 @@ public class Test {
             System.out.println("Por el 2");
             return false;
         }
-        if (!g.getSuccessors(3).equals(new ArrayList<Integer>(Arrays.asList(10, 8)))) {
-            System.out.println("Por el 3: "+g.getSuccessors(3).toString());
+        if (!g.getSuccessors(3).equals(new ArrayList<Integer>(Arrays.asList(8, 10)))) {
+            System.out.println("Por el 3: " + g.getSuccessors(3).toString());
             return false;
         }
         if (g.getSuccessors(4) != null) {
@@ -121,11 +119,11 @@ public class Test {
             System.out.println("Por el 6");
             return false;
         }
-        if (!g.getSuccessors(7).equals(new ArrayList<Integer>(Arrays.asList(11, 8)))) {
+        if (!g.getSuccessors(7).equals(new ArrayList<Integer>(Arrays.asList(8, 11)))) {
             System.out.println("Por el 7");
             return false;
         }
-        if (!g.getSuccessors(8).equals(new ArrayList<Integer>(Arrays.asList(9)))) {            
+        if (!g.getSuccessors(8).equals(new ArrayList<Integer>(Arrays.asList(9)))) {
             System.out.println("Por el 8");
             return false;
         }
@@ -137,8 +135,8 @@ public class Test {
             System.out.println("Por el 10");
             return false;
         }
-        if (!g.getSuccessors(11).equals(new ArrayList<Integer>(Arrays.asList(10,9,2)))) {
-            
+        if (!g.getSuccessors(11).equals(new ArrayList<Integer>(Arrays.asList(2,9,10)))) {
+
             System.out.println("Por el 11");
             return false;
         }

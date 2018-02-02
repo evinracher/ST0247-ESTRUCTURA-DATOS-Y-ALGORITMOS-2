@@ -1,6 +1,8 @@
 package taller01;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -24,6 +26,7 @@ public class DigraphAL extends Digraph {
     public void addArc(int source, int destination, int weight) {
         graph.get(source).add(Pair.makePair(destination, weight));
     }
+    
 
     @Override
     public ArrayList<Integer> getSuccessors(int vertex) {
@@ -33,6 +36,7 @@ public class DigraphAL extends Digraph {
         }
         if (r.isEmpty())
             return null;
+        Collections.sort(r);
         return r;
     }
 
