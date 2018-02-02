@@ -1,4 +1,7 @@
+package taller01;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Implementacion de un grafo dirigido usando listas de adyacencia
@@ -6,42 +9,61 @@ import java.util.ArrayList;
  * @author Mauricio Toro, Mateo Agudelo, Kevin Parra, Daniel Mesa
  */
 public class DigraphAL extends Digraph {
-    ArrayList<ArrayList<Pair<Integer, Integer>>> graph;
-    
-	public DigraphAL(int size) {
-	    super(size);
-	    System.out.println("TAMAÑO EN DIGRAPHAL: "+ size);
-	    graph = new ArrayList<ArrayList<Pair<Integer, Integer>>>(size);
-	    for(int i = 0; i < size; ++i){
-		graph.add(new ArrayList<Pair<Integer, Integer>>());
-	    }
-	}
 
+    ArrayList<LinkedList<Pair<Integer, Integer>>> graph;
+
+    public DigraphAL(int size) {
+        super(size);
+        graph = new ArrayList<>();
+        for (int i = 0; i < size; ++i) {
+            graph.add(new LinkedList<Pair<Integer, Integer>>());
+        }
+    }
+
+    @Override
     public void addArc(int source, int destination, int weight) {
-	System.out.println("Poniendo en: "+source);
-	graph.get(source).add(new Pair(destination, weight));
+        graph.get(source).add(Pair.makePair(destination, weight));
     }
-    
+
+    @Override
     public ArrayList<Integer> getSuccessors(int vertex) {
-	ArrayList<Integer> r = new ArrayList<Integer>();
-	for(int j = 0; j < graph.get(vertex).size(); j++){
-		r.add(graph.get(vertex).get(j).first);
-	    }
-	    if(r.size() == 0)
-		{
-		    return null;
-		}
-	    return r;
+        ArrayList<Integer> r = new ArrayList<>();
+        for (int j = 0; j < graph.get(vertex).size(); j++) {
+            r.add(graph.get(vertex).get(j).first);
+        }
+        if (r.isEmpty())
+            return null;
+        return r;
     }
-    
+
+    @Override
     public int getWeight(int source, int destination) {
-	if(graph.contains(source)){
-	    if(graph.get(source).contains(destination)){
-		return graph.get(source).get(destination).second;
-	    }else
-		return 0;
-	}
-	return 0;
+        if (graph.get(source).size() > 0) {
+            for (int i = 0; i < graph.get(source).size(); ++i) {
+                if (graph.get(source).get(i).first == destination) {
+                    return graph.get(source).get(i).second;
+                } 
+            }
+            return 0;
+        }
+        return 0;
     }
-    
+
+    private boolean elemenQuestion(int source, int destination) {
+        try {
+            graph.get(source).get(destination);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public void print() {
+        System.out.println(graph.toString());
+    }
+
+    int sizeLink(int vertex) {
+       return graph.get(vertex).size();
+    }
 }
