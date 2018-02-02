@@ -31,12 +31,11 @@ public class DigraphAL extends Digraph {
     @Override
     public ArrayList<Integer> getSuccessors(int vertex) {
         ArrayList<Integer> r = new ArrayList<>();
-        for (int j = 0; j < graph.get(vertex).size(); j++) {
+        for (int j = graph.get(vertex).size()-1; j >= 0; j--) {
             r.add(graph.get(vertex).get(j).first);
         }
         if (r.isEmpty())
             return null;
-        Collections.sort(r);
         return r;
     }
 
