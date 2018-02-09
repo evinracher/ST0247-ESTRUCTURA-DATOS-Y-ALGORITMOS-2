@@ -49,34 +49,56 @@ public class Taller2
 	}
     }
 
-    public static int reinas(int numero)
+    public static void reinas(int numero)
     {
 	int [] tablero = new int[numero];
 	//ArrayList<Integer> p = new ArrayList<>();
 	int ta = 0;
-	auxiliar(tablero, 0, ta);
-	System.out.println(ta);
-	return ta;
+	auxiliar(tablero, 0);
+	//System.out.println(ta);
+	//return ta;
     }
 
-    public static void auxiliar(int[] tablero, int posicion , int ta)
+    public static void auxiliar(int[] tablero, int posicion)
     {
 	if(posicion == tablero.length)
 	    {
 		if(!valido(tablero))
 		    {
-			ta++;
-			System.out.println(ta);
+			imprimir(tablero);
 		    }
 	    }else
 	    {
 		for(int i = 0; i < tablero.length; i++)
 		    {
 			tablero[posicion] = i;
-			auxiliar(tablero, posicion+1, ta);
+			auxiliar(tablero, posicion+1);
 		    }
 	    }
     }
+
+    public static void imprimir(int[] tablero)
+    {
+	int tamano = tablero.length-1;
+	System.out.print("    ");
+	for(int i = 0; i <= tamano; ++i)
+	    {
+		System.out.print(i+" ");
+		
+	    }
+	System.out.println("\n");
+	for(int i  = 0; i <= tamano; ++i)
+	    {
+		System.out.print(i+"   ");
+		for(int j = 0; j <= tamano; ++j)
+		    {
+			System.out.print((tablero[i] == j ? "Q": "#")+ " ");
+			
+		    }
+		System.out.println();
+	    }
+    }
+    
 
     public static boolean valido(int[] tablero)
     {
@@ -95,13 +117,14 @@ public class Taller2
     }
     
     
-    /*public static void main(String[] args )
-      {
-      TallerCom primero = new TallerCom();
-      ArrayList<String> p = primero.combinations("abc");
-      for(int i = 0; i < p.size(); i++)
-      {
-      System.out.println(p.get(i));
+    public static void main(String[] args )
+    {
+	//TallerCom primero = new TallerCom();
+	//ArrayList<String> p = primero.combinations("abc");
+	/*for(int i = 0; i < p.size(); i++)
+	    {
+		System.out.println(p.get(i));
+		}*/
+	reinas(2);
       }
-      }*/
 }
