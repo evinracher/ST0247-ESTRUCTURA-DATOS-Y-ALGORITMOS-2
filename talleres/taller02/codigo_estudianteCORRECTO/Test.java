@@ -15,7 +15,7 @@ public class Test {
 		
 		System.out.println("combinations -> " + convert(testCombinations()));
 		System.out.println("permutations -> " + convert(testPermutations()));
-		//System.out.println("n-reinas -> " + convert(testNQueens()));
+		System.out.println("n-reinas -> " + convert(testNQueens()));
 	}
 
 
@@ -191,18 +191,22 @@ public class Test {
 		return true;
 	}
 
-    /*static boolean testNQueens() {
-		// tomado de
-		// https://math.stackexchange.com/questions/1872444/how-many-solutions-are-there-to-an-n-by-n-queens-problem
-		int[] soluciones = { -1, 1, 0, 0, 2, 10, 4, 40, 92 };
-		for (int i = 1; i <= 8; ++i)
-			if (soluciones[i] != Taller2.queens(i))
-				return false;
-		return true;
-		}*/
+    static boolean testNQueens() {
+	// tomado de
+	// https://math.stackexchange.com/questions/1872444/how-many-solutions-are-there-to-an-n-by-n-queens-problem
+	int[] soluciones = { -1, 1, 0, 0, 2, 10, 4, 40, 92 };
+	for (int i = 1; i <= 8; ++i)
+	    {
+		if (soluciones[i] != Taller2.reinas(i))
+		    {
+			return false;
+		    }
+	    }
+	return true;
+    }
 
-	static String convert(boolean b) {
-		return b ? "correcta" : "incorrecta";
-	}
+    static String convert(boolean b) {
+	return b ? "correcta" : "incorrecta";
+    }
 
 }

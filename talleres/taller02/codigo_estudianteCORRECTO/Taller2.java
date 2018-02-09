@@ -4,6 +4,8 @@
  * @author Kevin Parra, Daniel Mesa, Felipe Olaya.
  * @version 08/02/2018 Clase#2
  */
+import java.lang.*;
+import java.util.*;
 import java.util.ArrayList;
 public class Taller2
 {
@@ -45,6 +47,51 @@ public class Taller2
 		permutations(pre+pos.charAt(i), pos.substring(0,i)+pos.substring(i+1), list);
 	    }
 	}
+    }
+
+    public static int reinas(int numero)
+    {
+	int [] tablero = new int[numero];
+	//ArrayList<Integer> p = new ArrayList<>();
+	int ta = 0;
+	auxiliar(tablero, 0, ta);
+	System.out.println(ta);
+	return ta;
+    }
+
+    public static void auxiliar(int[] tablero, int posicion , int ta)
+    {
+	if(posicion == tablero.length)
+	    {
+		if(!valido(tablero))
+		    {
+			ta++;
+			System.out.println(ta);
+		    }
+	    }else
+	    {
+		for(int i = 0; i < tablero.length; i++)
+		    {
+			tablero[posicion] = i;
+			auxiliar(tablero, posicion+1, ta);
+		    }
+	    }
+    }
+
+    public static boolean valido(int[] tablero)
+    {
+	for(int i = 0; i < tablero.length; i++)
+	    {
+		for(int j = 0; j <tablero.length; j++)
+		    {
+			if(tablero[i] == tablero[j] || Math.abs(tablero[i]-tablero[j])== Math.abs(j-i))
+			    {
+				return true;
+				
+			    }
+		    }
+	    }
+	return false;
     }
     
     
