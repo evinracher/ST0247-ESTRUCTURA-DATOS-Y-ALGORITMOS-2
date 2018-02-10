@@ -208,5 +208,4 @@ public class Test {
     static String convert(boolean b) {
 	return b ? "correcta" : "incorrecta";
     }
-
 }

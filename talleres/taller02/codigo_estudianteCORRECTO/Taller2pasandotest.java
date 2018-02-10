@@ -40,7 +40,7 @@ public class Taller2
     // recomendacion
     private static void permutations(String pre, String pos, ArrayList<String> list) {
 	if(pos.length() == 0){
-	    System.out.println(pre);
+	    //System.out.println(pre);
 	    list.add(pre);
 	}else{
 	    for(int i = 0; i < pos.length(); ++i ){
@@ -49,70 +49,77 @@ public class Taller2
 	}
     }
 
-    public static void reinas(int numero)
+    public static int reinas(int numero)
     {
+	int resultado = 0;
+	String original = "";
 	int [] tablero = new int[numero];
-	//ArrayList<Integer> p = new ArrayList<>();
-	int ta = 0;
-	auxiliar(tablero, 0);
+	for(int  i = 0; i < numero; i++)
+	    {
+		original = original+i;
+	    }
+	ArrayList<String> todos = new ArrayList<String>();
+	todos = permutations(original);
+	
+	for(int j = 0; j < todos.size(); j++)
+	    {
+		String prueba = todos.get(j);
+		for(int i = 0; i < prueba.length(); i++)
+		    {
+			tablero[i] = Integer.parseInt(prueba.charAt(i)+"");
+		    }
+		if(valido(tablero) == true)
+		    {
+			resultado = resultado + 1;
+		    }
+		//System.out.println(resultado);
+	    }
+	return resultado;
 	//System.out.println(ta);
 	//return ta;
     }
+    
 
-    public static void auxiliar(int[] tablero, int posicion)
+    public static ArrayList<int []> auxiliar(int[] tablero, int  posicion, ArrayList<int[]> todos)
     {
 	if(posicion == tablero.length)
 	    {
-		if(valido(tablero))
-		    {
-			imprimir(tablero);
-		    }
+		todos.add(tablero);
 	    }else
 	    {
 		for(int i = 0; i < tablero.length; i++)
 		    {
 			tablero[posicion] = i;
-			auxiliar(tablero, posicion+1);
+			auxiliar(tablero, posicion+1, todos);
 		    }
 	    }
+	return todos;
     }
 
-    public static void imprimir(int[] tablero)
+    
+    public static void imprimir(int[] arreglo)
     {
-	int tamano = tablero.length-1;
-	System.out.print("    ");
-	for(int i = 0; i <= tamano; ++i)
+	for(int i = 0; i < arreglo.length; i++)
 	    {
-		System.out.print(i+" ");
-		
-	    }
-	System.out.println("\n");
-	for(int i  = 0; i <= tamano; ++i)
-	    {
-		System.out.print(i+"   ");
-		for(int j = 0; j <= tamano; ++j)
-		    {
-			System.out.print((tablero[i] == j ? "Q": "#")+ " ");
-			
-		    }
+		for(int j = 0; j < arreglo.length; j++)
+		    if (j == arreglo[i])
+			System.out.print("Q");
+		    else
+			System.out.print("*");
 		System.out.println();
 	    }
+	System.out.println();
     }
     
-    //tomado de interactiva
+    
+
     public static boolean valido(int[] tablero)
     {
 	for(int i = 0; i < tablero.length; i++)
-	    {
-		for(int j = i+1; j <tablero.length; j++)
-		    {
-			if(tablero[i] == tablero[j] || Math.abs(tablero[i]-tablero[j])== Math.abs(j-i))
-			    {
-				return true;	
-			    }
-		    }
-	    }
-	return false;
+	    for(int j = i+1; j < tablero.length; j++)
+		if(tablero[i] == tablero[j] || Math.abs(tablero[i]-tablero[j]) == Math.abs(i-j))
+		    return false;
+	return true;
     }
     
     
@@ -124,6 +131,6 @@ public class Taller2
 	    {
 		System.out.println(p.get(i));
 		}*/
-	reinas(2);
+	System.out.println(reinas(1));
       }
 }
