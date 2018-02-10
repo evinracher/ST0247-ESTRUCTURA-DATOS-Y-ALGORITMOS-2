@@ -112,7 +112,7 @@ public class Taller2
     }
     
     
-
+    //tomado de interactiva
     public static boolean valido(int[] tablero)
     {
 	for(int i = 0; i < tablero.length; i++)
