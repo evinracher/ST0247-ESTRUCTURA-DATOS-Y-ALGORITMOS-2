@@ -32,7 +32,7 @@ void dfs(int v){
     }
   }
 }
-
+/**
 void dijkstra(int source){
   memset(d, inf, sizeof d);
   d[source] = 0;
@@ -51,7 +51,6 @@ void dijkstra(int source){
     }    
   }
 }
-
 int main(int argc, char **args){
   int vertices, edges;
   scanf("%d %d", &vertices, &edges);
@@ -61,5 +60,5 @@ int main(int argc, char **args){
     scanf("%d %d %d", &a, &b, &w);
     addWeightedEdge(a, b, w);
   }
-  dijkstra(1);
-}
+  //  dijkstra(1);
+  }**/
