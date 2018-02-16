@@ -71,14 +71,14 @@ public class Taller3 {
 	System.out.println();
     }
 	
-    /* public static ArrayList<Integer> camino(Digraph g, int inicio, int fin) {
+    public static ArrayList<Integer> camino(Digraph g, int inicio, int fin) {
 	
     }
 
     // recomendacion
     private static boolean dfs(Digraph g, int nodo, int objetivo, boolean[] visitados, ArrayList<Integer> list) {
 	
-    }*/
+    }
 
     public static void main(String[] args)
     {
