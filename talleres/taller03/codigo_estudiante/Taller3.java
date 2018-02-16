@@ -20,32 +20,36 @@ public class Taller3 {
     public static int nReinas(int n) {
 	int resultado = 0;
 	int [] tablero = new int[n];
-	//ArrayList<Integer> num =  new ArrayList<>();
-	nReinas(0, 0, tablero);
+	ArrayList<int []> num =  new ArrayList<>();
+	num = nReinas( 0, tablero, num);
 	/*for(int i = 0; i < num.size(); i++)
 	  {
 	      resultado = resultado + num.get(i);
 		
 	      }*/
-	return resultado;
+	return num.size();
     }
 	
-    private static void nReinas(int n, int[] tablero) {
+    private static ArrayList<int[]> nReinas(int n, int[] tablero, ArrayList<int []> num) {
 	if(n == tablero.length)
 	    {
 		if(!puedoPonerReina(tablero))
 		    {
 			imprimirTablero(tablero);
-			//resultado++;
+			num.add(tablero);
 		    }
 	    }else
 	    {
 		for(int i = 0; i < tablero.length; i++)
 		    {
 			tablero[n] = i;
-			nReinas(n+1, tablero);
+			nReinas(n+1, tablero, num);
+
+			
 		    }
 	    }
+
+	return num;
     }
 	
     public static void imprimirTablero(int[] tablero) {
@@ -67,14 +71,14 @@ public class Taller3 {
 	System.out.println();
     }
 	
-    public static ArrayList<Integer> camino(Digraph g, int inicio, int fin) {
+    /* public static ArrayList<Integer> camino(Digraph g, int inicio, int fin) {
 	
     }
 
     // recomendacion
     private static boolean dfs(Digraph g, int nodo, int objetivo, boolean[] visitados, ArrayList<Integer> list) {
 	
-    }
+    }*/
 
     public static void main(String[] args)
     {
