@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Stack;
 /**
  *tomado de internet
+ *https://java2blog.com/depth-first-search-in-java/
  **/ 
 public class Punto2
 { 
