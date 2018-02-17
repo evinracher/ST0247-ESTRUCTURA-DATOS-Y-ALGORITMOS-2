@@ -108,7 +108,7 @@ public class Taller3 {
 					nodo = s.get(i);
 					//System.out.println("tamaño: " + nodo + " "+ f);
 					f = dfs(g, nodo, objetivo, visitados, list);
-					
+					//list.add(nodo);
 					//System.out.println("tamaño: " + nodo + " "+ f);
 					if(f == true)
 					    {
@@ -141,7 +141,7 @@ public class Taller3 {
 	g.addArc(11,9, 1);
 	g.addArc(11, 10, 1);
 	//System.out.println("1");
-	ArrayList<Integer> list= camino(g, 7, 10);
+	ArrayList<Integer> list= camino(g, 7, 9);
 	for(int i  = 0; i < list.size(); i++)
 	    {
 		//System.out.println("1");
