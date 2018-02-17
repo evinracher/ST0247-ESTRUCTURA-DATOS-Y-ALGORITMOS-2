@@ -1,4 +1,4 @@
-package taller01;
+//package taller01;
 
 import java.util.ArrayList;
 
@@ -51,7 +51,7 @@ public class DigraphAM extends Digraph {
 		}
 	}
 
-	public static void main(String[] args)
+    /*public static void main(String[] args)
 	{
 		DigraphAM grafo1 = new DigraphAM(12);
 		grafo1.addArc(5, 11, 1);
@@ -66,7 +66,7 @@ public class DigraphAM extends Digraph {
 
 		grafo1.imprimir();
 
-	}
+		}*/
 
 
 }
