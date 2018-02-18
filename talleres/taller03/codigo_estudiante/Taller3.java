@@ -25,9 +25,9 @@ public class Taller3 {
 	num = nReinas( 0, tablero, num);
 	/*for(int i = 0; i < num.size(); i++)
 	  {
-	      resultado = resultado + num.get(i);
+	  resultado = resultado + num.get(i);
 		
-	      }*/
+	  }*/
 	return num.size();
     }
 	
@@ -74,14 +74,14 @@ public class Taller3 {
 	
     public static ArrayList<Integer> camino(Digraph g, int inicio, int fin) {
 	boolean [] visitados = new boolean[g.size()];
-	//System.out.println(g.size());
+	
         ArrayList<Integer> list = new ArrayList<>();
-	//System.out.println("1");
+	
 	boolean resultado = dfs(g, inicio, fin, visitados, list);
 	return list;
     }
 
-    // recomendacion
+    
     private static boolean dfs(Digraph g, int nodo, int objetivo, boolean[] visitados, ArrayList<Integer> list) {
 	if(nodo == objetivo)
 	    {
@@ -92,37 +92,23 @@ public class Taller3 {
 		if(g.getSuccessors(nodo) != null)
 		    {
 			ArrayList<Integer> s = g.getSuccessors(nodo);
-	    
-			//System.out.println("1");
 			boolean f = false;
 			if(visitados[nodo] == false)
 			    {
-				//System.out.println(nodo);
-				//System.out.println("tamaño"  + s.size());
 				visitados[nodo] = true;
 				list.add(nodo);
-				//System.o1ut.println("tamaño"  + s.size());
-			
 				for(int i = 0; i < s.size(); i++)
 				    {
 					nodo = s.get(i);
-					//System.out.println("tamaño: " + nodo + " "+ f);
 					f = dfs(g, nodo, objetivo, visitados, list);
-					//list.add(nodo);
-					//System.out.println("tamaño: " + nodo + " "+ f);
 					if(f == true)
 					    {
-						//list.add(nodo);
+					       
 						return true;
 					    }
 				    }
 		        
-			    }else
-			    {
-				return false;
 			    }
-	    
-			return false;
 		    }
 	    }
 	return false;
@@ -140,14 +126,13 @@ public class Taller3 {
 	g.addArc(11,2, 1);
 	g.addArc(11,9, 1);
 	g.addArc(11, 10, 1);
-	//System.out.println("1");
+	
 	ArrayList<Integer> list= camino(g, 7, 9);
 	for(int i  = 0; i < list.size(); i++)
 	    {
-		//System.out.println("1");
+	
 		System.out.println(list.get(i));
 	    }
     }
 
 }
-
