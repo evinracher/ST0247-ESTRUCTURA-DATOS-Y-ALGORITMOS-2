@@ -4,40 +4,38 @@
 #include <cstring>
 #include <iostream>
 #include <cstdlib>
+#include "graphI.h"
+
 using namespace std;
 
-const int N = 100;
-const int inf = 100000000;
+GraphI::GraphI(){
+}
 
-vector<vector<pair<int, int> > > adjList;
-bool was[N];
-int d[N];
-
-void addSimpleEdge(int a, int b){
-  pair<int, int> p (a,inf);
+void GraphI:: addSimpleEdge(int a, int b){
+  pair<int, int> p (a,-1);
   adjList[a].push_back(p);
 }
-void addWeightedEdge(int a, int b, int w){
-  pair<int, int> p (a,b);
+void GraphI::addWeightedEdge(int a, int b, int w){
+  pair<int, int> p (b,w);
   adjList[a].push_back(p);
 }
 
-int getSize(){
-  //I supose that this size is wrong but i dont care; may be the size of a graph refers to the grade; however, we are going to need this method
+int GraphI::getSize(){
+  //I supose that this size is wrong but i dont care; may be the size of a graph refers to the grade
   return adjList.size();
 }
 
-vector<pair<int,int> > getSuccesors(int a){
+vector<pair<int,int> > GraphI::getSuccesors(int a){
   return adjList[a];
 }
 
-void printSuccesors(int a){
+void GraphI::printSuccesors(int a){
   for(int i = 0; i < adjList[a].size(); ++i){
     cout << " Va a: " << adjList[a][i].first << "; con peso: "<< adjList[a][i].second << endl;
   }
 }
   
-void dfs(int v){
+void GraphI::dfs(int v){
   was[v] = false;
   printf("Los vertices encontrados al hacer DFS de %d son: ", v);
   for(size_t i = 0; i < adjList[v].size(); ++i){
