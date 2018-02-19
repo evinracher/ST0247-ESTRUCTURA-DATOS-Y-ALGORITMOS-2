@@ -32,7 +32,7 @@ public class Ejercicio2
 	int i = 0;
 	while(i < yaColor.length)
 	    {
-		yaColor[i] = -3;
+		yaColor[i] = -1;
 		i++;
 	    }
 	yaColor[0] = 1;
@@ -51,11 +51,12 @@ public class Ejercicio2
 		if(grafo.get(actual).contains(actual) == true) return false;
 		for(int i = 0; i < grafo.get(actual).size(); i++)
 		    {
-			if(color[i] == -3)
+			int j = grafo.get(actual).get(i);
+			if(color[j] == -1)
 			    {
-				color[i] = 3-color[actual];
-				recorridos.push(i);
-			    }else if(color[actual] == color[i]) return false;
+				color[j] = 1-color[actual];
+				recorridos.push(j);
+			    }else if(color[actual] == color[j]) return false;
 		    }
 	    }
 	return true;
@@ -68,7 +69,7 @@ public class Ejercicio2
 	int i = 0;
 	while(i < yaColor.length)
 	    {
-		yaColor[i] = -3;
+		yaColor[i] = -1;
 		i++;
 	    }
 	yaColor[0] = 1;
@@ -88,9 +89,9 @@ public class Ejercicio2
 		if(grafo[actual][actual] == 1) return false;
 		for(int i = 0; i < grafo.length; i++)
 		    {
-			if(grafo[actual][i] == 1 && color[i] == -3)
+			if(grafo[actual][i] == 1 && color[i] == -1)
 			    {
-				color[i] = 3-color[actual];
+				color[i] = 1-color[actual];
 				recorridos.push(i);
 			    }else if(grafo[actual][i] == 1  && color[actual] == color[i]) return false;
 		    }
@@ -110,23 +111,23 @@ public class Ejercicio2
 	while(numeroVertices != 0)
 	    {
 		aristas = consola.nextInt();
-		//int [][] grafo = new int[numeroVertices][numeroVertices];
-		ArrayList <LinkedList<Integer>> grafo = new ArrayList<>();
-		for(int j = 0; j < numeroVertices; j++ )
+		int [][] grafo = new int[numeroVertices][numeroVertices];
+		//ArrayList <LinkedList<Integer>> grafo = new ArrayList<>();
+		/*for(int j = 0; j < numeroVertices; j++ )
 		    {
 			grafo.add(new LinkedList<Integer>());
-		    }
+		    }*/
 		contador = 1;
 		while(contador <= aristas)
 		    {
 			origen = consola.nextInt();
 			destino = consola.nextInt();
-			grafo.get(origen).add(destino);
-			//grafo[origen][destino] = 1;
+			//grafo.get(origen).add(destino);
+			grafo[origen][destino] = 1;
 			//System.out.println("origen: " + origen+ " " + "destino: " + destino);
 			contador++; 
 		    }
-		String res = g.esColoreableP(grafo)? "BICOLORABLE" : "NOT BICOLORABLE";
+		String res = g.esColoreable(grafo)? "BICOLORABLE" : "NOT BICOLORABLE";
 		System.out.println(res);
 		numeroVertices = consola.nextInt();
 	    }
