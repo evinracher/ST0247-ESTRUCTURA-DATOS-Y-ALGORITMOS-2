@@ -1,50 +1,52 @@
 #include <iostream>
-#include "graph.cpp"
+#include "DinaGraph.h"
 #include <cstdlib>
 #include <vector>
 #include <list>
+#include <map>
+
 using namespace std;
-
-list<vector<string> > data;
-
-int main(int argc, char* argv[]){
-  string lectura;
+DinaGraph grafo (10);
+string lectura,name;
+int id, ido;
+double x,y,w;
+  
+void construction(){
   cin >> lectura;
   if(lectura == "Vertices."){
-    cout << lectura << endl;
     getline(cin, lectura);
     cin >> lectura;
     while(lectura != "Arcos."){
-      cout << "ID:"<< lectura << endl;
-      int i = atoi(lectura.c_str());
-      vector<string> vec(3);
+      id = atoi(lectura.c_str());
+      cout << "ID: "<< id << endl;
+      cin >> x;
+      cout << "X: " << x << endl;
+      cin >> y;
+      cout << "Y: " << y << endl;
+      getline(cin,name);
+      grafo.addVertex(id,x,y,name);
+      cout << "Nombre: " << name << endl;
       cin >> lectura;
-      vec[0] = lectura;
-      cout << "coordenada x:"<< lectura << endl;
-      cin >> lectura;
-      vec[1] = lectura;
-      cout << "coordenada y:"<< lectura << endl;
-      getline(cin,lectura);
-      vec[2] = lectura;
-      cout << "nombre:"<< lectura << endl;
-      vec[3] = "TRES";
-      cin >> lectura;
-      //lista de parejas es mejor, necesita un iterador la lista para insertar :| I am going to sleep
-      data.insert(vec);
+      cout << lectura << endl;
     }
     getline(cin, lectura);
-    cout << "ARCOS" << endl;
-    while(cin >> lectura){
-      cout << "ID1: "<< lectura << endl;
-      cin >> lectura;
-      cout << "ID2: "<< lectura << endl;
-      cin >> lectura;
-      cout << "Distancia: "<< lectura << endl;
+    cout << lectura << endl;
+    cout << "Despues de arcos" << endl;
+    while(cin >> id){
+      cout << "ID 1: "<< id << endl;
+      cin >> ido;
+      cin >> w;
       getline(cin,lectura);
-      cout << "Nombre: "<< lectura << endl;
+      cout << "Añadiendo: "<< endl;
+      grafo.addEdge(id,ido,w,lectura);
     }
   }else{
     cout << "Violación del formato" << endl;
   }
+  
+}
+int main(int argc, char* argv[]){
+  construction();
+  grafo.printSs(1);
   return 0;
 }
