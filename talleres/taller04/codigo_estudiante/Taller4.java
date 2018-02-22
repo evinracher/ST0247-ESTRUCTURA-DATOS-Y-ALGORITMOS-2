@@ -7,27 +7,48 @@ import java.util.ArrayList;
  */
 public class Taller4 {
 
-	public static int recorrido(Digraph g) {
-		// complete...
-	}
+    public static ArrayList<Integer> recorrido(Digraph g, int star) {
+	int tamaño = g instanceof ArrayList ? g.size() : g.lenght;
+ 	boolean [] visitados =  new boolean [tamaño];
+	ArrayList<Integer> recorridos = new ArrarList<>();
+	recorrido(g, star, visitados, recorridos);
+    }
 
-	// recomendacion
-	private static int recorrido(Digraph g, int v, int[] unvisited) {
-		// complete...
-	}
+    private static void recorrido(Digraph g, int pos, int[] unvisited, ArrayList<Integer> recorridos)
+    {
+	unvisited[pos] = true;
+	recorridos.add(pos);
+	ArrayList<Integer> sucesores = g.getSuccessors(pos);
+	if(sucesores != null)
+	for(Integer sucesor : sucesores)
+	    {
+		if(!visitados[sucesor])
+		    {
+			recorridos(g, sucesor, visitados, recorridos);
+		    }
+		return;
+	    }
+	
+	
+    }
+    
+    /*// recomendacion
+    private static int[] removeAt(int k, int a[]) {
+	// complete...
+    }
 
-	// recomendacion
-	private static int[] removeAt(int k, int a[]) {
-		// complete...
-	}
+    public static int costoMinimo(Digraph g, int inicio, int fin) {
+	// complete...
+    }
 
-	public static int costoMinimo(Digraph g, int inicio, int fin) {
-		// complete...
-	}
+    // recomendacion
+    private static void dfs(Digraph g, int v, int[] costo) {
+	// complete...
+	}*/
 
-	// recomendacion
-	private static void dfs(Digraph g, int v, int[] costo) {
-		// complete...
-	}
+    public static void main(String[] args)
+    {
 
+	
+    }
 }
