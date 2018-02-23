@@ -8,13 +8,14 @@ import java.util.ArrayList;
 public class Taller4 {
 
     public static ArrayList<Integer> recorrido(Digraph g, int star) {
-	int tamaño = g instanceof ArrayList ? g.size() : g.lenght;
- 	boolean [] visitados =  new boolean [tamaño];
-	ArrayList<Integer> recorridos = new ArrarList<>();
+	int tamano = g.size();
+ 	boolean [] visitados =  new boolean[tamano];
+	ArrayList<Integer> recorridos = new ArrayList<>();
 	recorrido(g, star, visitados, recorridos);
+	return recorridos;
     }
 
-    private static void recorrido(Digraph g, int pos, int[] unvisited, ArrayList<Integer> recorridos)
+    private static void recorrido(Digraph g, int pos, boolean[] unvisited, ArrayList<Integer> recorridos)
     {
 	unvisited[pos] = true;
 	recorridos.add(pos);
@@ -22,11 +23,11 @@ public class Taller4 {
 	if(sucesores != null)
 	for(Integer sucesor : sucesores)
 	    {
-		if(!visitados[sucesor])
+		if(!unvisited[sucesor])
 		    {
-			recorridos(g, sucesor, visitados, recorridos);
+			recorrido(g, sucesor, unvisited, recorridos);
 		    }
-		return;
+		//return;
 	    }
 	
 	
@@ -48,7 +49,21 @@ public class Taller4 {
 
     public static void main(String[] args)
     {
-
+	DigraphAM g = new DigraphAM(12);
+	g.addArc(5, 11, 1);
+	g.addArc(11, 9,  1);
+	g.addArc(11, 10, 1);
+	g.addArc(11, 2, 1);
+	g.addArc(7, 11, 1);
+	g.addArc(7, 8, 1);
+	g.addArc(3, 10, 1);
+	g.addArc(3, 8, 1);
+	g.addArc(8, 9 ,1);
+	ArrayList p =  recorrido(g, 3);
+	for(int i = 0; i < p.size(); i++)
+	    {
+		System.out.println(p.get(i));
+	    }
 	
     }
 }
