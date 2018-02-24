@@ -89,6 +89,35 @@ public class Taller4 {
 
 	return result;
     }
+
+
+    public static boolean bfsCamino(Digraph g, int star, int finish)
+    {
+	ArrayList<Integer> result = new ArrayList<>();
+	boolean [] visitados = new boolean[g.size()];
+	Queue<Integer> vecinos = new LinkedList<>();
+	result.add(star);
+	vecinos.add(star);
+	while(!vecinos.isEmpty())
+	    {
+		int v = vecinos.poll();
+		ArrayList<Integer> success = g.getSuccessors(v);
+		if(success != null)
+		for(int i = 0; i < success.size(); i++)
+		    {
+			vecinos.add(success.get(i));
+			//result.add(success.get(i));
+			if(!visitados[success.get(i)])
+			    {
+				result.add(success.get(i));
+			    }
+			visitados[success.get(i)] = true;
+		    }
+		
+	    }
+
+	return result.contains(finish);
+    }
     
     /*// recomendacion
     private static int[] removeAt(int k, int a[]) {
@@ -121,6 +150,9 @@ public class Taller4 {
 	    {
 		System.out.println(p.get(i));
 	    }*/
+	System.out.println(camino(g, 7, 10));
 	System.out.println(camino(g, 7, 3));
+	System.out.println(bfsCamino(g, 7, 10));
+	System.out.println(bfsCamino(g, 7, 3));
     }
 }
