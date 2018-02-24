@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Queue;
+import java.util.LinkedList;
 
 /**
  * Clase en la cual se implementan los metodos del Taller de Clase #4
@@ -32,6 +34,35 @@ public class Taller4 {
 	
 	
     }
+
+
+    public static ArrayList<Integer> bfs(Digraph g, int star)
+    {
+	ArrayList<Integer> result = new ArrayList<>();
+	boolean [] visitados = new boolean[g.size()];
+	Queue<Integer> vecinos = new LinkedList<>();
+	result.add(star);
+	vecinos.add(star);
+	while(!vecinos.isEmpty())
+	    {
+		int v = vecinos.poll();
+		ArrayList<Integer> success = g.getSuccessors(v);
+		if(success != null)
+		for(int i = 0; i < success.size(); i++)
+		    {
+			vecinos.add(success.get(i));
+			//result.add(success.get(i));
+			if(!visitados[success.get(i)])
+			    {
+				result.add(success.get(i));
+			    }
+			visitados[success.get(i)] = true;
+		    }
+		
+	    }
+
+	return result;
+    }
     
     /*// recomendacion
     private static int[] removeAt(int k, int a[]) {
@@ -59,7 +90,7 @@ public class Taller4 {
 	g.addArc(3, 10, 1);
 	g.addArc(3, 8, 1);
 	g.addArc(8, 9 ,1);
-	ArrayList p =  recorrido(g, 3);
+	ArrayList p =  bfs(g, 7);
 	for(int i = 0; i < p.size(); i++)
 	    {
 		System.out.println(p.get(i));
