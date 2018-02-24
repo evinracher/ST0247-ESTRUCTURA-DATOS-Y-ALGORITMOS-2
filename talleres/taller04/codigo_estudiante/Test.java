@@ -12,7 +12,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		System.out.println("Recorrido (TSP) -> " + convert(testRecorrido()));
-		System.out.println("Camino con costo minimo -> " + convert(testCostoMinimo()));		
+		//System.out.println("Camino con costo minimo -> " + convert(testCostoMinimo()));		
 	}
 
 	static boolean testRecorrido() {
@@ -83,7 +83,7 @@ public class Test {
 		return true;
 	}
 
-	static boolean testCostoMinimo() {
+    /*static boolean testCostoMinimo() {
 		int n = 8;
 		
 		DigraphAL g = new DigraphAL(n);
@@ -174,7 +174,7 @@ public class Test {
 					return false;
 
 		return true;
-	}
+	}*/
 
 	static String convert(boolean b) {
 		return b ? "correcta" : "incorrecta";
