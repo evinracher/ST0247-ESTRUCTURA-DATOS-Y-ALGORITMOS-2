@@ -22,21 +22,15 @@ public class Taller3 {
 	int resultado = 0;
 	int [] tablero = new int[n];
 	ArrayList<int []> num =  new ArrayList<>();
-	num = nReinas( 0, tablero, num);
-	/*for(int i = 0; i < num.size(); i++)
-	  {
-	  resultado = resultado + num.get(i);
-		
-	  }*/
+	nReinas( 0, tablero, num);
 	return num.size();
     }
 	
-    private static ArrayList<int[]> nReinas(int n, int[] tablero, ArrayList<int []> num) {
+    private static void nReinas(int n, int[] tablero, ArrayList<int []> num) {
 	if(n == tablero.length)
 	    {
 		if(!puedoPonerReina(tablero))
 		    {
-			imprimirTablero(tablero);
 			num.add(tablero);
 		    }
 	    }else
@@ -45,12 +39,8 @@ public class Taller3 {
 		    {
 			tablero[n] = i;
 			nReinas(n+1, tablero, num);
-
-			
 		    }
 	    }
-
-	return num;
     }
 	
     public static void imprimirTablero(int[] tablero) {
@@ -126,13 +116,8 @@ public class Taller3 {
 	g.addArc(11,2, 1);
 	g.addArc(11,9, 1);
 	g.addArc(11, 10, 1);
-	
-	ArrayList<Integer> list= camino(g, 7, 9);
-	for(int i  = 0; i < list.size(); i++)
-	    {
-	
-		System.out.println(list.get(i));
-	    }
+
+	System.out.println(nReinas(4));
     }
 
 }
