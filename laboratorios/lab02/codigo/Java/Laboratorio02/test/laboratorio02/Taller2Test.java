@@ -35,6 +35,18 @@ public class Taller2Test {
         expResult = 4;
         result = Taller2.reinas(numero);
         assertEquals(expResult, result);
+        
+        System.out.println("reinas 2");
+        numero = 1;
+        expResult = 1;
+        result = Taller2.reinas(numero);
+        assertEquals(expResult, result);
+        
+        System.out.println("reinas 2");
+        numero = 0;
+        expResult = -1;
+        result = Taller2.reinas(numero);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -52,6 +64,18 @@ public class Taller2Test {
         int[] tableroM = {7,3,0,2,5,1,6,2};
         expResult = false;
         result = Taller2.valido(tableroM);
+        assertEquals(expResult, result);
+        
+        System.out.println("valido bien 2" );
+        int[] tableroN = {2,0,3,1};
+        expResult = true;
+        result = Taller2.valido(tableroN);
+        assertEquals(expResult, result);
+        
+        System.out.println("valido bien 3" );
+        int[] tableroR = {2,0,3,1};
+        expResult = true;
+        result = Taller2.valido(tableroR);
         assertEquals(expResult, result);
     }
     

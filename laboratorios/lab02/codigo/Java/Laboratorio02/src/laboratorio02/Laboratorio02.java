@@ -15,6 +15,6 @@ public class Laboratorio02 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.print(Taller2.reinas(4));
+        System.out.println(Taller2.reinas(8));
     }
 }
