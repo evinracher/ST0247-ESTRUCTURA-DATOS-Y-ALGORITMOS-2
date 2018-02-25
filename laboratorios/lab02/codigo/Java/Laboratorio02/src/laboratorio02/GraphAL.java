@@ -1,3 +1,4 @@
+package laboratorio02;
 import java.util.ArrayList;
 /**
  * Esta clase es una implementación de un grafo usando listas de adyacencia

@@ -1,3 +1,4 @@
+package laboratorio02;
 import java.util.ArrayList;
 /**
  * Abstract class for implementations of Digraphs

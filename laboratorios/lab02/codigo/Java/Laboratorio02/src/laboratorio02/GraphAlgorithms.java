@@ -1,3 +1,4 @@
+package laboratorio02;
 import java.util.*;
 /**
  * This class contains algorithms for graphs
@@ -63,7 +64,7 @@ public class GraphAlgorithms
         System.out.println("}");
      }
      
- public static void main(String[] args)
+ /*public static void main(String[] args)
  {
      GraphAL gal = new GraphAL(7);
      gal.addArc(0,1,4);
@@ -118,5 +119,5 @@ public class GraphAlgorithms
      for (int i  = 0; i < path4.size(); i++){
        System.out.println(path4.get(i));
     }
- }
+ }*/
 }
