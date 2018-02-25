@@ -7,7 +7,7 @@ package laboratorio02;
 
 /**
  *
- * @author danys
+ * @author Kevin Parra, Daniel Mesa
  */
 public class Laboratorio02 {
 
@@ -15,7 +15,6 @@ public class Laboratorio02 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-            System.out.println(Taller2.reinas(8));
+        System.out.print(Taller2.reinas(4));
     }
-    
 }

@@ -70,6 +70,7 @@ public class Taller2
 		    }
 		if(valido(tablero) == true)
 		    {
+			imprimir(tablero);
 			resultado = resultado + 1;
 		    }
 		//System.out.println(resultado);
@@ -131,6 +132,6 @@ public class Taller2
 	    {
 		System.out.println(p.get(i));
 		}*/
-	System.out.println(reinas(1));
+	System.out.println(reinas(6));
       }
 }
