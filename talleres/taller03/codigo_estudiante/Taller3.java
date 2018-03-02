@@ -18,6 +18,7 @@ public class Taller3 {
 	return false;
     }
 	
+
     public static int nReinas(int n) {
 	int resultado = 0;
 	int [] tablero = new int[n];
