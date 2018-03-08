@@ -1,4 +1,3 @@
-
 /**
  * Clase en la cual se implementan los metodos del Taller de Clase #6
  * 
@@ -7,11 +6,10 @@
 public class Taller6 {
 
 	public static int[] cambioGreedy(int n, int[] denominaciones) {
-		// complete...
-	}
+		// complete...	}
 
 	public static int recorrido(Digraph g) {
-		// complete...
+	    boolean[] visit =  new boolea[g.size()];
 	}
 
 }
