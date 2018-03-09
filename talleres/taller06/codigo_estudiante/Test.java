@@ -12,7 +12,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		System.out.println("Cambio monedas greedy -> " + convert(testMonedas()));
-		System.out.println("Recorrido greedy -> " + convert(testRecorrido()));
+		//System.out.println("Recorrido greedy -> " + convert(testRecorrido()));
 	}
 
 	static boolean testMonedas() {
@@ -49,7 +49,7 @@ public class Test {
 		return true;
 	}
 
-	static boolean testRecorrido() {
+    /*static boolean testRecorrido() {
 		DigraphAL g1 = new DigraphAL(5);
 		g1.addArc(0, 1, 2);
 		g1.addArc(0, 2, 2);
@@ -115,7 +115,7 @@ public class Test {
 			return false;
 
 		return true;
-	}
+		}*/
 
 	static String convert(boolean b) {
 		return b ? "correcta" : "incorrecta";
