@@ -25,16 +25,19 @@ public class Lab03 {
         
         DigraphAM grafo1 = new DigraphAM(12);
         GraphAlgorithms proff = new GraphAlgorithms(grafo1.size());
-        grafo1.addArc(5, 11, 1);
-        grafo1.addArc(7, 8, 1);
-        grafo1.addArc(7, 11, 1);
-        grafo1.addArc(3, 8, 1);
-        grafo1.addArc(3, 10, 1);
-        grafo1.addArc(8, 9, 1);
-        grafo1.addArc(11, 2, 1);
-        grafo1.addArc(11, 9, 1);
-        grafo1.addArc(11, 10, 1);
-        System.out.println(" "+proff.BFS(5, grafo1).toString());
+        grafo1.addArc(0, 1, 1);
+        grafo1.addArc(1, 0, 1);
+        grafo1.addArc(1, 3, 1);
+        grafo1.addArc(3, 1, 1);
+        grafo1.addArc(2, 1, 1);
+        grafo1.addArc(1, 2, 1);
+        grafo1.addArc(3, 4, 1);
+        grafo1.addArc(4, 3, 1);        
+        grafo1.addArc(2, 3, 1);
+        grafo1.addArc(3, 2, 1);
+
+
+        System.out.println(" "+proff.BFS(0, grafo1).toString());
     }
     
 }
