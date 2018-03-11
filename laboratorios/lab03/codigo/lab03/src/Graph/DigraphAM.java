@@ -52,7 +52,7 @@ public class DigraphAM extends Digraph {
         }
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         DigraphAM grafo1 = new DigraphAM(12);
         grafo1.addArc(5, 11, 1);
         grafo1.addArc(7, 8, 1);
@@ -66,7 +66,7 @@ public class DigraphAM extends Digraph {
 
         grafo1.imprimir();
 
-    }
+    }*/
 
     @Override
     public int getSize(int curr) {
