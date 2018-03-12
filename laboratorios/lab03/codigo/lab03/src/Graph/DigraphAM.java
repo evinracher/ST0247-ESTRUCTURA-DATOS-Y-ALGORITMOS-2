@@ -62,8 +62,7 @@ public class DigraphAM extends Digraph {
         grafo1.addArc(8, 9, 1);
         grafo1.addArc(11, 2, 1);
         grafo1.addArc(11, 9, 1);
-        grafo1.addArc(11, 10, 1);
-
+        grafo1.addArc(11, 10, 1);x
         grafo1.imprimir();
 
     }*/

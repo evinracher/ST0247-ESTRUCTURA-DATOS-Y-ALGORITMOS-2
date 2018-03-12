@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Graph;
+import java.util.ArrayList;
 /**
  *
  * @author danys
@@ -31,13 +32,12 @@ public class Ejercicios {
             if (!puedoPonerReina(tablero)) {
                 return tablero;
             }
-        } else if(n != tablero.length){
+        } else if (n != tablero.length) {
             int[] aux = new int[tablero.length];
             for (int i = 0; i < tablero.length; i++) {
                 tablero[n] = i;
                 aux = nReinas(n + 1, tablero);
-                if(aux != null)
-                {
+                if (aux != null) {
                     return aux;
                 }
             }
@@ -60,6 +60,34 @@ public class Ejercicios {
             System.out.println();
         }
         System.out.println();
+    }
+
+    public static ArrayList<Integer> recorrido(Digraph g, int star, int finish) {
+        int tamano = g.size();
+        int[] costo = new int[tamano];
+        ArrayList<Integer> recorridos = new ArrayList<>();
+        ArrayList<Integer> suc = g.getSuccessors(star);
+        for(int i = 0; i < suc.size(); i++)
+        {
+            costo[suc.get(i)] = -1;
+        }
+        recorrido(g, star, finish, costo, recorridos);
+        return recorridos;
+    }
+
+    private static void recorrido(Digraph g, int pos, int finish, int[] costo, ArrayList<Integer> recorridos) {
+        recorridos.add(pos);
+        ArrayList<Integer> sucesores = g.getSuccessors(pos);
+        if (sucesores != null) {
+            for (int i = 0; i < sucesores.size(); i++) {
+                if(costo[sucesores.get(i)] == -1)
+                {
+                    costo[sucesores.get(i)] = g.getWeight(pos, sucesores.get(i));
+                }
+                //return;
+            }
+        }
+
     }
 
 }

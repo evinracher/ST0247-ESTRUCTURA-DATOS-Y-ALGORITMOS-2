@@ -37,7 +37,7 @@ public class Lab03 {
         grafo1.addArc(3, 2, 1);
         System.out.println(" "+proff.BFS(0, grafo1).toString());*/
         Ejercicios pruebas = new Ejercicios();
-        int[] unaSolucion = pruebas.nReinas(5);
+        int[] unaSolucion = pruebas.nReinas(4);
         if(unaSolucion != null)
         {
         for(int i = 0; i < unaSolucion.length; i++ )
