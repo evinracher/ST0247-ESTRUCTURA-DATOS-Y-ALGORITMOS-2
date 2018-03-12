@@ -23,9 +23,9 @@ public class Lab03 {
      */
     public static void main(String[] args) {
         
-        /*DigraphAM grafo1 = new DigraphAM(12);
-        GraphAlgorithms proff = new GraphAlgorithms(grafo1.size());
-        grafo1.addArc(0, 1, 1);
+        //DigraphAM grafo1 = new DigraphAM(12);
+        GraphAlgorithms proff = new GraphAlgorithms(12);
+        /*grafo1.addArc(0, 1, 1);
         grafo1.addArc(1, 0, 1);
         grafo1.addArc(1, 3, 1);
         grafo1.addArc(3, 1, 1);
@@ -35,21 +35,28 @@ public class Lab03 {
         grafo1.addArc(4, 3, 1);        
         grafo1.addArc(2, 3, 1);
         grafo1.addArc(3, 2, 1);
-        System.out.println(" "+proff.BFS(0, grafo1).toString());*/
-        Ejercicios pruebas = new Ejercicios();
-        int[] unaSolucion = pruebas.nReinas(4);
-        if(unaSolucion != null)
+        System.out.println(" "+proff.BFS(, grafo1).toString());*/
+        DigraphAM g = new DigraphAM(12);
+        g.addArc(5, 11, 1);
+        g.addArc(11, 9, 1);
+        g.addArc(11, 10, 1);
+        g.addArc(11, 2, 1);
+        g.addArc(7, 11, 1);
+        g.addArc(7, 8, 1);
+        g.addArc(3, 10, 1);
+        g.addArc(3, 8, 1);
+        g.addArc(8, 9, 1);
+        ArrayList<Integer> re = proff.BFS(5, g);
+        for(int i = 0; i < re.size(); i++)
         {
-        for(int i = 0; i < unaSolucion.length; i++ )
-        {
-            System.out.println(unaSolucion[i]);
+            System.out.println(re.get(i));
+        
         }
-        }else
+        /*Ejercicios pruebas = new Ejercicios();
+        for(int i = 4; i <= 32; i ++)
         {
-            System.out.println("es null");
-            
-        }
-
+            System.out.println("tiempo para: "+ i + " :"+ pruebas.tomarTiempo(i));
+        }*/
     }
     
 }

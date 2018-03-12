@@ -49,19 +49,4 @@ public class EjerciciosTest {
         int[]result4 = instance.nReinas(n);
         assertArrayEquals(expResult4, result4);
     }
-
-    /**
-     * Test of recorrido method, of class Ejercicios.
-     */
-    /*public void testRecorrido() {
-        System.out.println("recorrido");
-        Digraph g = null;
-        int star = 0;
-        int finish = 0;
-        ArrayList<Integer> expResult = null;
-        ArrayList<Integer> result = Ejercicios.recorrido(g, star, finish);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
-    }
+}

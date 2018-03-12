@@ -44,50 +44,41 @@ public class Ejercicios {
         }
         return null;
     }
-
-    public void imprimirTablero(int[] tablero) {
-        int n = tablero.length;
-        System.out.print("    ");
-        for (int i = 0; i < n; ++i) {
-            System.out.print(i + " ");
-        }
-        System.out.println("\n");
-        for (int i = 0; i < n; ++i) {
-            System.out.print(i + "   ");
-            for (int j = 0; j < n; ++j) {
-                System.out.print((tablero[i] == j ? "Q" : "#") + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
+    
+    public long tomarTiempo(int n) {
+        long startTime = System.currentTimeMillis();
+        nReinas(n);
+        long estimatedTime = System.currentTimeMillis() - startTime;
+        return estimatedTime;
     }
 
-    public static ArrayList<Integer> recorrido(Digraph g, int star, int finish) {
+    /*public static ArrayList<Integer> recorrido(Digraph g, int star, int finish) {
         int tamano = g.size();
         int[] costo = new int[tamano];
         ArrayList<Integer> recorridos = new ArrayList<>();
         ArrayList<Integer> suc = g.getSuccessors(star);
         for(int i = 0; i < suc.size(); i++)
         {
-            costo[suc.get(i)] = -1;
+            costo[suc.get(i)] = g.getWeight(star, suc.get(i));
         }
         recorrido(g, star, finish, costo, recorridos);
         return recorridos;
-    }
+    }*/
 
-    private static void recorrido(Digraph g, int pos, int finish, int[] costo, ArrayList<Integer> recorridos) {
-        recorridos.add(pos);
+    /*private static void recorrido(Digraph g, int pos, int finish, int[] costo, ArrayList<Integer> recorridos) {
+        //recorridos.add(pos);
         ArrayList<Integer> sucesores = g.getSuccessors(pos);
         if (sucesores != null) {
             for (int i = 0; i < sucesores.size(); i++) {
-                if(costo[sucesores.get(i)] == -1)
+                if(costo[sucesores.get(i)] > costo[sucesores.get(i)] + g.getWeight(pos, sucesores.get(i)))
                 {
-                    costo[sucesores.get(i)] = g.getWeight(pos, sucesores.get(i));
+                    costo[sucesores.get(i)] = costo[sucesores.get(i)] + g.getWeight(pos, sucesores.get(i));
+                }else{
+                    costo[sucesores.get(i)] = costo[sucesores.get(i)] + 
                 }
-                //return;
             }
         }
 
-    }
+    }*/
 
 }
