@@ -78,4 +78,9 @@ public class DigraphAL extends Digraph {
     public int getSuc(int curr, int i) {
         return graph.get(curr).get(i).first;
     }
+    
+    @Override
+    public int size(){
+        return size;
+    }
 }

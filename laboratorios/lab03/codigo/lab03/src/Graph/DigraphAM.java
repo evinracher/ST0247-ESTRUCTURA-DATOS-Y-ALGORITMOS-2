@@ -72,6 +72,14 @@ public class DigraphAM extends Digraph {
     public int getSize(int curr) {
         return grafo[curr].length;
     }
+    
+    /**
+     * Numero de vertices
+     * @return 
+     **/
+    public int size(){
+        return size;
+    }
 
     @Override
     public int getSuc(int curr, int i) {

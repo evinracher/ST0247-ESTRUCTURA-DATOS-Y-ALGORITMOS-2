@@ -23,8 +23,8 @@ public class Lab03 {
      */
     public static void main(String[] args) {
         
-        /*DigraphAM grafo1 = new DigraphAM(12);
-        GraphAlgorithms proff = new GraphAlgorithms(grafo1.size());
+        DigraphAM grafo1 = new DigraphAM(12);
+        GraphAlgorithms proff = new GraphAlgorithms(grafo1);
         grafo1.addArc(0, 1, 1);
         grafo1.addArc(1, 0, 1);
         grafo1.addArc(1, 3, 1);
@@ -35,8 +35,10 @@ public class Lab03 {
         grafo1.addArc(4, 3, 1);        
         grafo1.addArc(2, 3, 1);
         grafo1.addArc(3, 2, 1);
-        System.out.println(" "+proff.BFS(0, grafo1).toString());*/
-        Ejercicios pruebas = new Ejercicios();
+        System.out.println("Cilos: "+ proff.Ciclos(grafo1.size()));
+        System.out.println(" "+proff.BFS(0, grafo1).toString());
+        System.out.println("Costo mínimo: "+proff.caminos(grafo1.size(), -1));
+        /**Ejercicios pruebas = new Ejercicios();
         int[] unaSolucion = pruebas.nReinas(5);
         if(unaSolucion != null)
         {
@@ -48,7 +50,7 @@ public class Lab03 {
         {
             System.out.println("es null");
             
-        }
+        }//**/
 
     }
     
