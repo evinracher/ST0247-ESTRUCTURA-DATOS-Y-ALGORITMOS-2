@@ -14,8 +14,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
- * @author danys
+ * Test para probar los metodos implementados en la clase Laboratorio4D2
+ * @author Daniel Mesa
+ * @author Kevin Parra
  */
 public class Laboratorio4D2Test {
     /**
