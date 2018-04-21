@@ -26,6 +26,10 @@ float **ls, **gs;
 
 node *nodes;
 
+// Saving charging stations
+vector<node> csts;
+
+
 void readInput(){
   //About the problem
   scanf(" n = %d", &n);
@@ -52,6 +56,9 @@ void readInput(){
           , &nodes[i].id, nodes[i].name
           , &nodes[i].x, &nodes[i].y
           , &nodes[i].type, &nodes[i].station_type);
+    if(nodes[i].type == 's'){
+      csts.push_back(nodes[i]);
+    }
   }
   //About the stations
   scanf(" l");
@@ -73,7 +80,15 @@ void readInput(){
   }
 }
 
+//Print charging stations
+void print_csts(){
+  for(int i = 0; i < csts.size(); ++i){
+
+  }
+}
+
 int main(){
   readInput();
   Tmax -= m * St_customer;
+  print_csts();
 }
