@@ -13,7 +13,7 @@ enum nodetype {
 
 struct node {
   int id;
-  char *name;
+  string name;
   float x, y;
   char type;
   int station_type;
@@ -64,20 +64,18 @@ void readInput(){
 
   nodes = new node[n];
   for(int i=0;i<n;++i){
-    scanf(" %d %s %f %f %c %d"
-          , &nodes[i].id, &nodes[i].name
-          , &nodes[i].x, &nodes[i].y
-          , &nodes[i].type,&nodes[i].station_type);
-    D(nodes[i].id);
-    D(nodes[i].name);
-    D(nodes[i].x);
-    D(nodes[i].y);
-    D(nodes[i].type);    
-    D(nodes[i].station_type);
-    if(nodes[i].type == 's'){
+    cin >> *nodes[i].id;
+    cin >> *nodes[i].name;
+    cin >> *nodes[i].x;
+    cin >> *nodes[i].y;
+    cin >> *nodes[i].type;
+    cin >> *nodes[i].station_type;
+
+    cout << *nodes[i].id << endl;
+    //<< *nodes[i].name << *nodes[i].x << *nodes[i].y << *nodes[i].type << *nodes[i].station_type << endl;
+      
+    if(type == 's'){
       D("Charging station");
-      D(nodes[i].type);
-      csts.push_back(nodes[i]);
     }
   }
   //About the stations
