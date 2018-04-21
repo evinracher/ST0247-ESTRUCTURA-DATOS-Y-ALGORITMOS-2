@@ -69,7 +69,7 @@ void readInput(){
           , &nodes[i].x, &nodes[i].y
           , &nodes[i].type,&nodes[i].station_type);
     D(nodes[i].id);
-    D(nodes[i].name);
+    printf(nodes[i].name);
     D(nodes[i].x);
     D(nodes[i].y);
     D(nodes[i].type);    
