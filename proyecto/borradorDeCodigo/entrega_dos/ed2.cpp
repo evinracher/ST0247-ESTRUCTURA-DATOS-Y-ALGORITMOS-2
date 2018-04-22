@@ -29,7 +29,6 @@ float r, speed, Tmax, Smax;
 float st_customer, Q;
 int l, g;
 float **ls, **gs;
-
 vector<node> nodes;
 
 // Saving charging stations
@@ -118,6 +117,22 @@ float dist(node n1, node n2){
   return r;
 }
 
+int* grafo()
+{
+  int gra[n][n];
+  for(int i = 0; i < n; i++)
+    {
+      for(int j = 0; j < n; i++)
+	{
+	  int distancia = dist(nodes[i], nodes[j]);
+	  gra[nodes[i].id][nodes[j].id] = distancia;
+	}
+    }
+  int *p = &gra[0][0]; 
+  return p;
+}
+
+
 //Print nodes
 void print_ns(){
   for(int i = 0; i < nodes.size(); ++i){
@@ -137,3 +152,4 @@ int main(){
   print_ns();
   cout << dist(nodes[0],nodes[1])<< endl;
 }
+
