@@ -19,21 +19,23 @@ struct node {
   int station_type;
   //  node(int id, string name, float x, float y, char type, int station_type) {this->id = id; this->name = name; this->x = x; this->y = y; this->type = type; this->station_type = station_type;}
 };
+
 /**
    n = # of nodes
    m = # of customers
    u = # of charging stations
 **/
+
 int n, m, u, breaks;
 float r, speed, Tmax, Smax;
 float st_customer, Q;
 int l, g;
 float **ls, **gs;
-vector<node> nodes;
 
+vector<node> nodes;
+vector<vector<float>> graph;
 // Saving charging stations
 vector<node> csts;
-
 
 void readInput(){
   //About the problem
@@ -95,6 +97,8 @@ void readInput(){
   }
 }
 
+
+
 //Print charging stations
 void print_csts(){
   for(int i = 0; i < csts.size(); ++i){
@@ -117,21 +121,20 @@ float dist(node n1, node n2){
   return r;
 }
 
-int* grafo()
+void grafo()
 {
-  int gra[n][n];
+  
+  
   for(int i = 0; i < n; i++)
     {
-      for(int j = 0; j < n; i++)
+      for(int j = 0; j < n; j++)
 	{
-	  int distancia = dist(nodes[i], nodes[j]);
-	  gra[nodes[i].id][nodes[j].id] = distancia;
+	  float distancia = dist(nodes[i], nodes[j]);
+	  graph[nodes[i].id][nodes[j].id] = distancia;
 	}
     }
-  int *p = &gra[0][0]; 
-  return p;
+  //return graph;
 }
-
 
 //Print nodes
 void print_ns(){
@@ -147,9 +150,10 @@ void print_ns(){
 }
 int main(){
   readInput();
-  Tmax -= m * st_customer;
-  //  print_csts();
-  print_ns();
-  cout << dist(nodes[0],nodes[1])<< endl;
+  Tmax -= m * st_customer; //ruta total
+  grafo();
+  //print_csts();
+  //print_ns();
+  //cout << dist(nodes[0],nodes[1])<< endl;
 }
 
