@@ -34,7 +34,7 @@ float r, speed, Tmax, Smax;
 float st_customer, Q;
 int l, g;
 float **ls, **gs;
-
+float costoTotal;
 //Saving all nodes
 vector<node> nodes;
 
@@ -45,11 +45,11 @@ vector<node> csts;
 map<int, vector<node> > rs;
 
 //Vector de grafos
-vector<vector <vector <float> > > graphs;
+map<int, vector<vector<float>>> graphs;
 
 float dist(node n1, node n2);
 void print_node(node &p);
-
+//void tsp(vector<vector<float>> grafoActual, int pos, int tam, vector<pair<node, float>> camino, vector<node> r);
 void readInput(){
   //About the problem
   scanf(" n = %d", &n);
@@ -131,7 +131,7 @@ void c_regions(){
 }
 
 //print regions
-void print_rs(){
+/*void print_rs(){
   for(map<int, vector<node> >::iterator it = rs.begin(); it != rs.end(); ++it){
     cout << it->first << " :" << endl;
     vector<node> r = it->second;
@@ -139,7 +139,7 @@ void print_rs(){
       print_node(r[i]);
     }
   }
-}
+}*/
 
 void print_node(node &node){
   cout << node.id << " "
@@ -169,9 +169,8 @@ float dist(node n1, node n2){
 
 // No se identifica en el recorrido por id... si necesitamos saber el id solo se hace algo como rgs[i].id
 // maybe we are goint to need more that distance
-vector< vector <float> > grafo(vector<node > rgs)
+vector<vector<float>> grafo(vector<node > rgs)
 {
-  
   vector< vector <float> > graph_a (rgs.size());
   for(int i = 0; i < graph_a.size(); ++i){
     graph_a[i].resize(rgs.size());
@@ -201,10 +200,69 @@ void print_vector(vector<node> nos){
 void vgraph(){
   for(map<int, vector<node> >::iterator it = rs.begin(); it != rs.end(); ++it){
     vector<node > r = it->second;
-    graphs.push_back(grafo(r));
+    int identifier = it->first;
+    graphs[identifier] = grafo(r);
   }
   M("BIEN VGRAPH");
 }
+
+void tspAux(int grafoA)
+{
+  //cout << "aca" << endl;
+  vector<vector<float>> grafoActual = graphs[grafoA];
+  vector<pair<node, float>> camino;
+  camino.push_back(make_pair(nodes[0], 0));
+  vector<node> re = rs[grafoA];
+  int distance = dist(nodes[0], re[0]);
+  int min = 0;
+  for(int i = 1; i < re.size(); i++)
+    {
+      if(distance > dist(nodes[0], re[i]))
+	{
+	  distance = dist(nodes[0], re[i]);
+	  min = i;
+	}
+    }
+  costoTotal = costoTotal + (distance/speed);
+  int pos = min;
+  for(int g = 0; g < grafoActual.size(); g++)
+    {
+      camino.push_back(make_pair(re[pos], costoTotal));
+      int min = grafoActual[pos][0];
+      int nuevoPos;
+      for(int i = 0; i < grafoActual.size(); i++)
+	{
+	  if(min > grafoActual[pos][i])
+	    {
+	      min = grafoActual[pos][i];
+	      nuevoPos = i;
+	    }
+	}
+      pos = nuevoPos;
+      costoTotal = costoTotal + (min / speed);
+    }
+}
+
+/*void tsp(vector<vector<float>> grafoActual, int pos, int tam, vector<pair<node, float>> camino, vector<node> r)
+{
+  if(tam != grafoActual.size())
+    {
+      camino.push_back(make_pair(r[pos], costoTotal));
+      int min = grafoActual[pos][0];
+      int nuevoPos;
+      for(int i = 0; i < grafoActual.size(); i++)
+	{
+	  if(min > grafoActual[pos][i])
+	    {
+	      min = grafoActual[pos][i];
+	      nuevoPos = i;
+	    }
+	}
+      costoTotal = costoTotal + (min / speed);
+      tam = tam+1;
+      tsp(grafoActual, nuevoPos, tam, camino, r);
+    }
+}*/
 
 void print_g(int id){
   cout << "[ ";
@@ -238,12 +296,22 @@ void print_ns(){
 
 int main(){
   readInput();
-  Tmax -= m * st_customer; //ruta total
+  //Tmax -= m * st_customer; //ruta total
   //Generating regions
   c_regions();
-  print_rs();
+  //print_rs();
   //GOOD
+  cout << "good" << endl;
   vgraph();
-  print_f();
+  cout << "good" << endl;
+  for(map<int, vector<vector<float>>>::iterator it = graphs.begin(); it != graphs.end(); it++)
+    {
+      //cout << "good 1"<< endl << endl;
+      int identifier = it->first;
+      tspAux(identifier);
+      //cout << "hecho" << endl;
+    }
+  cout << costoTotal << endl;
+  //print_f();
 }
 
