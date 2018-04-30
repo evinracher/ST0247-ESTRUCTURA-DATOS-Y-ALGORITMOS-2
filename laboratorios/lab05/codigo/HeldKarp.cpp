@@ -6,7 +6,7 @@
 #define INT_MAX  10000 // I guest this like max
 /**
     Tomado de*: https://stackoverflow.com/questions/25681432/using-bitmasking-in-dynamic-programming
-    *se hizo modificaciones y se puede correr con taller11 < t11.txt
+    *se hizo modificaciones y se puede correr con HeldKarp.exe < t11.txt
 **/
 int n,npow,g[size][sizePOW],p[size][sizePOW],adj[size][size];
 

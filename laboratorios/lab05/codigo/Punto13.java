@@ -1,5 +1,5 @@
 import java.lang.Math;
-public class Punto11
+public class Punto13
 {
     public static int subs(String initial, String finals)
     {
@@ -34,9 +34,13 @@ public class Punto11
 
     public static void main(String[] args)
     {
-	String x = "carro";
-	String y = "casa";
+	String x = "ABCDGH";
+	String y = "AEDFHR";
 	int r = subs(x, y);
-	System.out.println("la mas larga es: "+ r);
+	System.out.println("la mas larga es de: "+ r);
+	x = "AGGTAB";
+	y = "GXTXAYB";
+	r = subs(x, y);
+	System.out.println("la mas larga es de: "+ r);
     }
 }

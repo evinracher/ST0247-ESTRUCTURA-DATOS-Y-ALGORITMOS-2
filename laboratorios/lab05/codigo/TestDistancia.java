@@ -1,13 +1,10 @@
 
 /**
- * Prueba la implementacion de los metodos en la clase Taller9.
- * 
- * Ejecute esta clase para hacerse una idea de si su implementacion de los
- * ejercicios propuestos en el Taller de Clase #9 son correctos.
+ * tomado de los Tests proporcionados para la clase
  * 
  * @author Mateo Agudelo
  */
-public class Test {
+public class TestDistancia {
 
 	public static void main(String[] args) {
 		System.out.println("Levenshtein -> " + convert(testLevenshtein()));
