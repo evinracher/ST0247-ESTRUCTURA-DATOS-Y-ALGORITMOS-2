@@ -206,7 +206,7 @@ void vgraph(){
   M("BIEN VGRAPH");
 }
 
-void tspAux(int grafoA)
+vector<pair<node, float>> tspAux(int grafoA)
 {
   //cout << "aca" << endl;
   vector<vector<float>> grafoActual = graphs[grafoA];
@@ -225,22 +225,35 @@ void tspAux(int grafoA)
     }
   costoTotal = costoTotal + (distance/speed);
   int pos = min;
-  for(int g = 0; g < grafoActual.size(); g++)
+  vector<bool> visited;
+  visited.assign(re.size(), false);
+  if(grafoActual.size() > 0)
     {
-      camino.push_back(make_pair(re[pos], costoTotal));
-      int min = grafoActual[pos][0];
-      int nuevoPos;
-      for(int i = 0; i < grafoActual.size(); i++)
+      for(int g = 0; g < grafoActual.size(); g++)
 	{
-	  if(min > grafoActual[pos][i])
+	  camino.push_back(make_pair(re[pos], costoTotal));
+	  visited[pos] = true;
+	  //cout << re[pos].id 1<< ": "<<costoTotal << endl;
+	  int minus = 8000;
+	  int nuevoPos;
+	  //cout << grafoActual.size() << ": " << re.size() << endl; 
+	  for(int i = 0; i < grafoActual.size(); i++)
 	    {
-	      min = grafoActual[pos][i];
-	      nuevoPos = i;
+	      //cout << pos << endl;
+	      if(minus > grafoActual[pos][i] && visited[i] == false)
+		{
+		  minus = grafoActual[pos][i];
+		  nuevoPos = i;
+		}
 	    }
+	
+    
+	  //cout << "s"<<endl;
+	  pos = nuevoPos;
+	  costoTotal = costoTotal + (minus / speed);
 	}
-      pos = nuevoPos;
-      costoTotal = costoTotal + (min / speed);
     }
+  return camino;
 }
 
 /*void tsp(vector<vector<float>> grafoActual, int pos, int tam, vector<pair<node, float>> camino, vector<node> r)
@@ -301,14 +314,19 @@ int main(){
   c_regions();
   //print_rs();
   //GOOD
-  cout << "good" << endl;
+  //cout << "good" << endl;
   vgraph();
-  cout << "good" << endl;
+  //cout << "good" << endl;
   for(map<int, vector<vector<float>>>::iterator it = graphs.begin(); it != graphs.end(); it++)
     {
       //cout << "good 1"<< endl << endl;
       int identifier = it->first;
-      tspAux(identifier);
+      vector<pair<node, float>> result = tspAux(identifier);
+      cout << "ruta: " << endl;
+      for(int i  = 0; i < result.size(); i++)
+	{
+	  cout << result[i].first.id << ": " << result[i].second << endl;
+	}
       //cout << "hecho" << endl;
     }
   cout << costoTotal << endl;
