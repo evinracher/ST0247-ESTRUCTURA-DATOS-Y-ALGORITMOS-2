@@ -45,7 +45,7 @@ vector<node> csts;
 map<int, vector<node> > rs;
 
 //Vector de grafos
-map<int, vector<vector<float>>> graphs;
+map<int, vector<vector<float> > > graphs;
 
 float dist(node n1, node n2);
 void print_node(node &p);
@@ -169,7 +169,7 @@ float dist(node n1, node n2){
 
 // No se identifica en el recorrido por id... si necesitamos saber el id solo se hace algo como rgs[i].id
 // maybe we are goint to need more that distance
-vector<vector<float>> grafo(vector<node > rgs)
+vector<vector<float> > grafo(vector<node > rgs)
 {
   vector< vector <float> > graph_a (rgs.size());
   for(int i = 0; i < graph_a.size(); ++i){
@@ -206,11 +206,11 @@ void vgraph(){
   M("BIEN VGRAPH");
 }
 
-vector<pair<node, float>> tspAux(int grafoA)
+vector<pair<node, float> > tspAux(int grafoA)
 {
   //cout << "aca" << endl;
-  vector<vector<float>> grafoActual = graphs[grafoA];
-  vector<pair<node, float>> camino;
+  vector<vector<float> > grafoActual = graphs[grafoA];
+  vector<pair<node, float> > camino;
   camino.push_back(make_pair(nodes[0], 0));
   vector<node> re = rs[grafoA];
   int distance = dist(nodes[0], re[0]);
@@ -317,11 +317,11 @@ int main(){
   //cout << "good" << endl;
   vgraph();
   //cout << "good" << endl;
-  for(map<int, vector<vector<float>>>::iterator it = graphs.begin(); it != graphs.end(); it++)
+  for(map<int, vector<vector<float> > >::iterator it = graphs.begin(); it != graphs.end(); it++)
     {
       //cout << "good 1"<< endl << endl;
       int identifier = it->first;
-      vector<pair<node, float>> result = tspAux(identifier);
+      vector<pair<node, float> > result = tspAux(identifier);
       cout << "ruta: " << endl;
       for(int i  = 0; i < result.size(); i++)
 	{
