@@ -2,7 +2,7 @@
 
 /**
    Compile with C++11
-   Trabajo en conjunto con Agustin Nieto 
+   Trabajo en conjunto con Agustin Nieto
 **/
 using namespace std;
 #define D(x) cout << "DEBUG " << #x "=" << x << endl
@@ -21,7 +21,20 @@ struct node {
   int region; //region, charging stations doesnt have that (region = -1 ever)
   int dregion; //distance to region
   //  node(int id, string name, float x, float y, char type, int station_type) {this->id = id; this->name = name; this->x = x; this->y = y; this->type = type; this->station_type = station_type;}
+  //Charging (la pendiente)
+  float cing;
 };
+
+vector<vector<float> > geses;
+vector<vector<float> > leses;
+float calc_charge(int type){
+  return geses[type][geses[type].size()-1]/leses[type][leses[type].size()-1];
+}
+
+//Charging function
+float charging(int m, int time){
+  return m*time;
+}
 
 /**
    n = # of nodes
@@ -29,6 +42,7 @@ struct node {
    u = # of charging stations
 **/
 
+int MAX = 1000000;
 int n, m, u, breaks;
 float r, speed, Tmax, Smax;
 float st_customer, Q;
@@ -44,12 +58,14 @@ vector<node> csts;
 //regiones
 map<int, vector<node> > rs;
 
-//Vector de grafos
+//Vector de grafos (con todas las regiones)
 map<int, vector<vector<float> > > graphs;
 
 float dist(node n1, node n2);
 void print_node(node &p);
-//void tsp(vector<vector<float>> grafoActual, int pos, int tam, vector<pair<node, float>> camino, vector<node> r);
+
+node deposito;
+
 void readInput(){
   //About the problem
   scanf(" n = %d", &n);
@@ -76,7 +92,7 @@ void readInput(){
   D(Q);
   //About the map!
   scanf(" Coordinates");
-  
+
   nodes.resize(n);
   for(int i=0;i<n;++i){
     cin >> nodes[i].id;
@@ -87,38 +103,53 @@ void readInput(){
     cin >> nodes[i].station_type;
     nodes[i].region = -1;
     nodes[i].dregion = -1;
-      
+
     if(nodes[i].type == 's'){
       csts.push_back(nodes[i]);
-    }
+    }else{
+      nodes[i].cing = 0;
+    } 
   }
   //About the stations
   scanf(" l");
-  ls = new float*[3];
+  leses.resize(3);
   for(int i=0;i<3;++i){
-    ls[i] = new float[breaks];
+    leses[i].resize(breaks);
     for(int j=0;j<breaks;++j){
-      scanf(" %f", &ls[i][j]);
+      scanf(" %f", &leses[i][j]);
+    }
+  }
+  
+  scanf(" g");
+  geses.resize(3);
+  for(int i=0;i<3;++i){
+    geses[i].resize(breaks);
+    for(int j=0;j<breaks;++j){
+      scanf(" %f", &geses[i][j]);
     }
   }
 
-  scanf(" g");
-  gs = new float*[3];
-  for(int i=0;i<3;++i){
-    gs[i] = new float[breaks];
-    for(int j=0;j<breaks;++j){
-      scanf(" %f", &gs[i][j]);
-    }
+  for(int i = 0; i < csts.size();++i){
+    csts[i].cing = calc_charge(csts[i].station_type);
+    D(csts[i].station_type);
+    D(i);
+    D(csts[i].cing);
   }
 }
 
 
 void c_regions(){
   for(int i = 0; i < nodes.size(); i++){
+    if(nodes[i].type == 's'){
+      continue;
+    }
+    if(nodes[i].type == 'd'){
+      continue;
+    }
     int mindist = dist(nodes[i],csts[0]);
     int idmin = csts[0].id;
     for(int j = 1; j < csts.size(); ++j){
-      float dtemp = dist(nodes[i], csts[j]); 
+      float dtemp = dist(nodes[i], csts[j]);
       if(dtemp < mindist){
 	mindist = dtemp;
 	idmin = csts[j].id;
@@ -175,7 +206,6 @@ vector<vector<float> > grafo(vector<node > rgs)
   for(int i = 0; i < graph_a.size(); ++i){
     graph_a[i].resize(rgs.size());
   }
-  D(rgs.size());
   for(int i = 0; i < rgs.size(); i++)
     {
       for(int j = 0; j < rgs.size(); j++)
@@ -186,7 +216,6 @@ vector<vector<float> > grafo(vector<node > rgs)
 	  }
 	}
     }
-  M("Bien graph");
   return graph_a;
 }
 
@@ -203,17 +232,15 @@ void vgraph(){
     int identifier = it->first;
     graphs[identifier] = grafo(r);
   }
-  M("BIEN VGRAPH");
 }
 
 vector<pair<node, float> > tspAux(int grafoA)
 {
-  //cout << "aca" << endl;
   vector<vector<float> > grafoActual = graphs[grafoA];
   vector<pair<node, float> > camino;
   camino.push_back(make_pair(nodes[0], 0));
   vector<node> re = rs[grafoA];
-  int distance = dist(nodes[0], re[0]);
+  float distance = dist(nodes[0], re[0]);
   int min = 0;
   for(int i = 1; i < re.size(); i++)
     {
@@ -224,6 +251,7 @@ vector<pair<node, float> > tspAux(int grafoA)
 	}
     }
   costoTotal = costoTotal + (distance/speed);
+  float costoLocal = distance/speed;
   int pos = min;
   vector<bool> visited;
   visited.assign(re.size(), false);
@@ -231,53 +259,34 @@ vector<pair<node, float> > tspAux(int grafoA)
     {
       for(int g = 0; g < grafoActual.size(); g++)
 	{
-	  camino.push_back(make_pair(re[pos], costoTotal));
+	  camino.push_back(make_pair(re[pos], costoLocal));
 	  visited[pos] = true;
-	  //cout << re[pos].id 1<< ": "<<costoTotal << endl;
-	  int minus = 8000;
-	  int nuevoPos;
-	  //cout << grafoActual.size() << ": " << re.size() << endl; 
+	  float minus = MAX;
+	  bool change = true;
+	  int nuevoPos = pos;
 	  for(int i = 0; i < grafoActual.size(); i++)
 	    {
-	      //cout << pos << endl;
 	      if(minus > grafoActual[pos][i] && visited[i] == false)
 		{
 		  minus = grafoActual[pos][i];
 		  nuevoPos = i;
 		}
+	      if(minus != MAX){
+	    pos = nuevoPos;
+	    costoLocal = costoLocal + (minus / speed);
+	      }
 	    }
-	
-    
-	  //cout << "s"<<endl;
-	  pos = nuevoPos;
-	  costoTotal = costoTotal + (minus / speed);
 	}
     }
+  costoTotal+=costoLocal;
+  cout << "Costo Local: " << costoLocal << endl;
   return camino;
 }
 
-/*void tsp(vector<vector<float>> grafoActual, int pos, int tam, vector<pair<node, float>> camino, vector<node> r)
-{
-  if(tam != grafoActual.size())
-    {
-      camino.push_back(make_pair(r[pos], costoTotal));
-      int min = grafoActual[pos][0];
-      int nuevoPos;
-      for(int i = 0; i < grafoActual.size(); i++)
-	{
-	  if(min > grafoActual[pos][i])
-	    {
-	      min = grafoActual[pos][i];
-	      nuevoPos = i;
-	    }
-	}
-      costoTotal = costoTotal + (min / speed);
-      tam = tam+1;
-      tsp(grafoActual, nuevoPos, tam, camino, r);
-    }
-}*/
-
 void print_g(int id){
+  if(graphs[id].size() <= 1){
+    return;
+  }
   cout << "[ ";
   for(int i = 0; i < graphs[id].size(); ++i)
     cout << i <<  " ";
@@ -313,13 +322,10 @@ int main(){
   //Generating regions
   c_regions();
   //print_rs();
-  //GOOD
-  //cout << "good" << endl;
   vgraph();
-  //cout << "good" << endl;
+
   for(map<int, vector<vector<float> > >::iterator it = graphs.begin(); it != graphs.end(); it++)
     {
-      //cout << "good 1"<< endl << endl;
       int identifier = it->first;
       vector<pair<node, float> > result = tspAux(identifier);
       cout << "ruta: " << endl;
@@ -327,9 +333,7 @@ int main(){
 	{
 	  cout << result[i].first.id << ": " << result[i].second << endl;
 	}
-      //cout << "hecho" << endl;
     }
   cout << costoTotal << endl;
   //print_f();
 }
-
