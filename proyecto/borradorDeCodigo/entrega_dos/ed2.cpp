@@ -2,7 +2,7 @@
 
 /**
    Compile with C++11
-   Trabajo en conjunto con Agustin Nieto
+   Trabajo en conjunto con Agustin Nieto (input)
 **/
 using namespace std;
 #define D(x) cout << "DEBUG " << #x "=" << x << endl
@@ -41,7 +41,7 @@ float st_customer, Q;
 int l, g;
 float **ls, **gs;
 float costoTotal;
-
+float costoLocal;
 
 float calc_charge(int type){
   return geses[type][geses[type].size()-1]/leses[type][leses[type].size()-1];
@@ -68,6 +68,9 @@ vector<node> nodes;
 
 // Saving charging stations
 vector<node> csts;
+
+//For avoid change code xD. To save charging stations
+map<int, node> est_charge;
 
 //regiones
 map<int, vector<node> > rs;
@@ -148,6 +151,7 @@ void readInput(){
     D(csts[i].station_type);
     D(i);
     D(csts[i].cing);
+    est_charge[csts[i].id] = nodes[i];
   }
 }
 
@@ -265,8 +269,19 @@ vector<pair<node, float> > tspAux(int grafoA)
 	  min = i;
 	}
     }
+
+  //Is charging stations is more near that any other node in its region
+  if(distance > dist(nodes[0], est_charge[grafoA]))
+	{
+	  distance = dist(nodes[0], est_charge[grafoA]);
+	  min = re.size();
+	  re.push_back(est_charge[grafoA]);
+	  cout << "Starting charging station" << endl;
+	}
+  //Actually algoritm starts here
+  c_b-=h_b(distance);
   costoTotal = costoTotal + (distance/speed);
-  float costoLocal = distance/speed;
+  costoLocal = distance/speed;
   int pos = min;
   vector<bool> visited;
   visited.assign(re.size(), false);
@@ -287,8 +302,8 @@ vector<pair<node, float> > tspAux(int grafoA)
 		  nuevoPos = i;
 		}
 	      if(minus != MAX){
-	    pos = nuevoPos;
-	    costoLocal = costoLocal + (minus / speed);
+		pos = nuevoPos;
+		costoLocal = costoLocal + (minus / speed);
 	      }
 	    }
 	}
@@ -296,6 +311,8 @@ vector<pair<node, float> > tspAux(int grafoA)
   int d_return = dist(nodes[0], camino[camino.size()-1].first);
   costoLocal+= d_return/speed;
   camino.push_back(make_pair(nodes[0], costoLocal));
+  //Adding customer time
+  costoLocal+=st_customer*(camino.size()-2); 
   costoTotal+=costoLocal;
   cout << "Costo Local: " << costoLocal << endl;
   return camino;
@@ -341,17 +358,21 @@ int main(){
   c_regions();
   //print_rs();
   vgraph();
-
+  int x = 1;
   for(map<int, vector<vector<float> > >::iterator it = graphs.begin(); it != graphs.end(); it++)
     {
       int identifier = it->first;
       vector<pair<node, float> > result = tspAux(identifier);
-      cout << "ruta: " << endl;
+      cout << "Ruta " << x << ": "<< endl;
       for(int i  = 0; i < result.size(); i++)
 	{
-	  cout << result[i].first.id << ": " << result[i].second << endl;
+	  float time = result[i].second;
+	  //Minutes, por si las moscas
+	  //time = time/60.0;
+	  //cout << result[i].first.id << " (" << time <<")"<< endl;
 	}
+      x++;
     }
-  cout << costoTotal << endl;
+  cout << endl << "Costo Total: "<<costoTotal << endl;
   //print_f();
 }
