@@ -27,14 +27,6 @@ struct node {
 
 vector<vector<float> > geses;
 vector<vector<float> > leses;
-float calc_charge(int type){
-  return geses[type][geses[type].size()-1]/leses[type][leses[type].size()-1];
-}
-
-//Charging function
-float charging(int m, int time){
-  return m*time;
-}
 
 /**
    n = # of nodes
@@ -49,6 +41,28 @@ float st_customer, Q;
 int l, g;
 float **ls, **gs;
 float costoTotal;
+
+
+float calc_charge(int type){
+  return geses[type][geses[type].size()-1]/leses[type][leses[type].size()-1];
+}
+
+//Charging function
+float charging(float m, float time){
+  return m*time;
+}
+
+//How much kilometers can i drive?
+float h_km(float level_b){
+  return level_b/r;
+}
+
+//How much battery i need to drive km?
+float h_b(float km){
+  return km*r;
+}
+
+
 //Saving all nodes
 vector<node> nodes;
 
@@ -236,6 +250,7 @@ void vgraph(){
 
 vector<pair<node, float> > tspAux(int grafoA)
 {
+  float c_b = Q;
   vector<vector<float> > grafoActual = graphs[grafoA];
   vector<pair<node, float> > camino;
   camino.push_back(make_pair(nodes[0], 0));
@@ -278,6 +293,9 @@ vector<pair<node, float> > tspAux(int grafoA)
 	    }
 	}
     }
+  int d_return = dist(nodes[0], camino[camino.size()-1].first);
+  costoLocal+= d_return/speed;
+  camino.push_back(make_pair(nodes[0], costoLocal));
   costoTotal+=costoLocal;
   cout << "Costo Local: " << costoLocal << endl;
   return camino;

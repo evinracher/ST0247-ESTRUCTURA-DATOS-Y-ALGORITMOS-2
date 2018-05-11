@@ -27,6 +27,22 @@ struct node {
 
 vector<vector<float> > geses;
 vector<vector<float> > leses;
+
+/**
+   n = # of nodes
+   m = # of customers
+   u = # of charging stations
+**/
+
+int MAX = 1000000;
+int n, m, u, breaks;
+float r, speed, Tmax, Smax;
+float st_customer, Q;
+int l, g;
+float **ls, **gs;
+float costoTotal;
+
+
 float calc_charge(int type){
   return geses[type][geses[type].size()-1]/leses[type][leses[type].size()-1];
 }
@@ -45,19 +61,8 @@ float h_km(float level_b){
 float h_b(float km){
   return km*r;
 }
-/**
-   n = # of nodes
-   m = # of customers
-   u = # of charging stations
-**/
 
-int MAX = 1000000;
-int n, m, u, breaks;
-float r, speed, Tmax, Smax;
-float st_customer, Q;
-int l, g;
-float **ls, **gs;
-float costoTotal;
+
 //Saving all nodes
 vector<node> nodes;
 
@@ -288,6 +293,9 @@ vector<pair<node, float> > tspAux(int grafoA)
 	    }
 	}
     }
+  int d_return = dist(nodes[0], camino[camino.size()-1].first);
+  costoLocal+= d_return/speed;
+  camino.push_back(make_pair(nodes[0], costoLocal));
   costoTotal+=costoLocal;
   cout << "Costo Local: " << costoLocal << endl;
   return camino;
