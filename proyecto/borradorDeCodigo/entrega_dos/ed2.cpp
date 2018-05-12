@@ -322,7 +322,7 @@ vector<pair<node, float> > tspAux(int grafoA)
 
     float if_char =0;
     //Is charging stations is more near that any other node in its region
-    if(distance > dist(nodes[0], est_charge[grafoA]))
+    if(distance >= dist(nodes[0], est_charge[grafoA]))
     {
         distance = dist(nodes[0], est_charge[grafoA]);
         min = re.size()-1;
@@ -331,19 +331,25 @@ vector<pair<node, float> > tspAux(int grafoA)
         D(est_charge[grafoA].type);
         //Charging full battery if I am in a charging station in the begin
         if_char = h_b(distance);
+        D(if_char);
+        D("Start in charging station");
         //Adding charging time
         costoLocal += h_t(est_charge[grafoA].cing, if_char);
     }
 
     //Actually algoritm starts here
-    c_b-=h_b(distance)+if_char;
+    c_b=c_b-h_b(distance)+if_char;
+    D(re[min].id);
+    cout << "starting"<<endl;
+    D(c_b);
     node charger = re[re.size()-1];
     D(charger.id);
-    D(est_charge[grafoA].id);
     costoLocal = distance/speed;
     int pos = min;
     vector<bool> visited;
     visited.assign(re.size(), false);
+
+
 
     if(grafoActual.size() > 0)
     {
@@ -370,16 +376,24 @@ vector<pair<node, float> > tspAux(int grafoA)
 
             if(minus != MAX)
             {
-                if(c_b-h_b(minus) < h_b(dist(re[pos], charger)))
+                D(c_b);
+                if(c_b-h_b(minus) < h_b(dist(re[nuevoPos], charger)))
             {
+                D(c_b-h_b(minus));
+                D(h_b(dist(re[nuevoPos], charger)));
+                D(re[nuevoPos].id);
                 //recharging
                 float d_charge = dist(re[pos],charger);
                 costoLocal+=d_charge/speed;
                 //We guest: No hay nodos tan lejos que no se pueda llegar a una estacion de carga desde ellos
+                cout << "charging" << endl;
+                D(d_charge);
                 c_b-=h_b(d_charge);
+                D(c_b);
                 costoLocal+=h_t(charger.cing,Q-c_b);
                 //We charge battery
                 c_b = Q;
+                D(c_b);
                 pos = re.size()-1;
             }
             else
@@ -401,27 +415,15 @@ vector<pair<node, float> > tspAux(int grafoA)
         cout << "charging before return"<<endl;
         //Go to charging
         float d_charge = dist(camino[camino.size()-1].first, re[re.size()-1]);
-        D(camino[camino.size()-1].first.id);
-        D(re[re.size()-1].id);
-        D(d_charge);
-        D(costoLocal);
-        D(speed);
         costoLocal+= d_charge/speed;
-        D(costoLocal);
         camino.push_back(make_pair(re[re.size()-1], costoLocal));
-        D(re[re.size()-1].type);
         //How battery i need to go to deposit
         float d_deposit = dist(nodes[0], re[re.size()-1]);
         float b_need = h_b(d_deposit);
         //Adding charging time
-        D(re[re.size()-1].cing);
-        D(b_need);
         costoLocal+=h_t(re[re.size()-1].cing,b_need);
-        D(costoLocal);
-        D(d_deposit);
         //Adding time to go to deposit
         costoLocal+=d_deposit/speed;
-        D(costoLocal);
         camino.push_back(make_pair(nodes[0], costoLocal));
     }
     else
@@ -431,7 +433,6 @@ vector<pair<node, float> > tspAux(int grafoA)
     }
     //Adding customer time
     //in the path will be one charging station
-    D(st_customer*(re.size()-1));
     costoLocal+=st_customer*(re.size()-1);
     D(camino.size()-2);
     D(re.size()-1);
