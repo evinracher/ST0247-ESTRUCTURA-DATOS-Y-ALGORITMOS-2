@@ -274,9 +274,9 @@ vector<pair<node, float> > tspAux(int grafoA)
   if(distance > dist(nodes[0], est_charge[grafoA]))
 	{
 	  distance = dist(nodes[0], est_charge[grafoA]);
-	  min = re.size();
+	  //min = re.size();
 	  re.push_back(est_charge[grafoA]);
-	  cout << "Starting charging station" << endl;
+	  cout << "Starting charging station "<< est_charge[grafoA].id << endl;
 	}
   //Actually algoritm starts here
   c_b-=h_b(distance);
@@ -369,7 +369,7 @@ int main(){
 	  float time = result[i].second;
 	  //Minutes, por si las moscas
 	  //time = time/60.0;
-	  //cout << result[i].first.id << " (" << time <<")"<< endl;
+	  cout << result[i].first.id << " (" << time <<")"<< endl;
 	}
       x++;
     }
