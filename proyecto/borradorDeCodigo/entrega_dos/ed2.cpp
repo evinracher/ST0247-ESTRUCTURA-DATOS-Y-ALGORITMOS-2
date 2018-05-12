@@ -39,7 +39,6 @@ int n, m, u, breaks;
 float r, speed, Tmax, Smax;
 float st_customer, Q;
 int l, g;
-float **ls, **gs;
 float costoTotal;
 float costoLocal;
 
@@ -151,7 +150,8 @@ void readInput(){
     D(csts[i].station_type);
     D(i);
     D(csts[i].cing);
-    est_charge[csts[i].id] = nodes[i];
+    D(csts[i].id);
+    est_charge[csts[i].id] = csts[i];
   }
 }
 
@@ -176,6 +176,10 @@ void c_regions(){
     nodes[i].region = idmin;
     nodes[i].dregion = mindist;
     rs[idmin].push_back(nodes[i]);
+  }
+
+  for(int i = 0; i < csts.size(); ++i){
+    rs[csts[i].id].push_back(csts[i]);
   }
 }
 
@@ -274,13 +278,13 @@ vector<pair<node, float> > tspAux(int grafoA)
   if(distance > dist(nodes[0], est_charge[grafoA]))
 	{
 	  distance = dist(nodes[0], est_charge[grafoA]);
-	  //min = re.size();
-	  re.push_back(est_charge[grafoA]);
+	  min = re.size()-1;
+	  D(grafoA);
 	  cout << "Starting charging station "<< est_charge[grafoA].id << endl;
+	  D(est_charge[grafoA].type);
 	}
   //Actually algoritm starts here
   c_b-=h_b(distance);
-  costoTotal = costoTotal + (distance/speed);
   costoLocal = distance/speed;
   int pos = min;
   vector<bool> visited;
