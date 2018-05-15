@@ -325,7 +325,7 @@ void ending(vector<pair<node, float> > camino, float costo, vector<node> re, flo
         cout << "charging before return"<<endl;
         //Go to charging
         float d_charge = dist(camino[camino.size()-1].first, re[re.size()-1]);
-        camino.push_back(make_pair(re[re.size()-1], costo));
+        camino.push_back(make_pair(re[re.size()-1], (d_charge/speed)));
         //How battery i need to go to deposit
         float d_deposit = dist(nodes[0], re[re.size()-1]);
         float b_need = h_b(d_deposit);
@@ -333,14 +333,14 @@ void ending(vector<pair<node, float> > camino, float costo, vector<node> re, flo
         float c_time=h_t(re[re.size()-1].cing,b_need);
         //Adding time to go to deposit
         costo+=(d_charge+d_deposit)/speed+c_time;
-        camino.push_back(make_pair(nodes[0], costo));
+        camino.push_back(make_pair(nodes[0], (d_deposit/speed)));
     }
     else
     {
         //I dont need minus battery coz i am going to deposit
         float d_return = dist(nodes[0], camino[camino.size()-1].first);
         costo+= d_return/speed;
-        camino.push_back(make_pair(nodes[0], costo));
+        camino.push_back(make_pair(nodes[0], (d_return/speed)));
     }
     //Adding customer time
     //in the path will be one charging station
@@ -405,10 +405,11 @@ void tspAux(int grafoA)
     vector<bool> visited;
     visited.assign(re.size(), false);
     float costoLocal = 0;
+    float costoNode = 0;
     float distance;
     int min = initial_node(re, charger, visited, &costoLocal, &distance, &c_b);
     costoLocal = distance/speed;
-
+    costoNode = costoLocal;
     //Actually algoritm starts here
     D(re[min].id);
     cout << "starting"<<endl;
@@ -431,11 +432,12 @@ void tspAux(int grafoA)
                 costoLocal = 0;
                 pos = initial_node(re,charger,visited, &costoLocal,&distance,&c_b);
                 costoLocal+= distance/speed;
+		costoNode = distance/speed;
             }
             if(re[pos].type == 'c'){
                 costoLocal+=st_customer;
             }
-            camino.push_back(make_pair(re[pos], costoLocal));
+            camino.push_back(make_pair(re[pos], costoNode));
             //Don't mark charging station
             if(pos != re.size()-1)
             {
@@ -468,6 +470,7 @@ void tspAux(int grafoA)
                     cout << "charging" << endl;
                     c_b-=h_b(d_charge);
                     costoLocal+=h_t(charger.cing,Q-c_b);
+		    costoNode = d_charge/speed;
                     //We charge battery
                     c_b = Q;
                     pos = re.size()-1;
@@ -476,6 +479,7 @@ void tspAux(int grafoA)
                 {
                     pos = nuevoPos;
                     costoLocal+= (minus / speed);
+		    costoNode = minus/speed;
                     c_b -= h_b(minus);
                 }
 
