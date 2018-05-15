@@ -422,7 +422,7 @@ void tspAux(int grafoA)
             D(Tmax);
             D(costoLocal+return_time(camino,c_b,re));
             //0.5 Tiempo de gracia
-            if((costoLocal+return_time(camino,c_b,re)) >= Tmax-0.5)
+            if((costoLocal+return_time(camino,c_b,re)) >= Tmax-1.0)
             {
                 ending(camino, costoLocal,re, c_b);
                 camino.clear();
