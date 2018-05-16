@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-
+#include <stdio.h>
+#include <sys/time.h>
 /**
    Compile with C++11
    Trabajo en conjunto con Agustin Nieto (input)
@@ -71,6 +72,7 @@ map<int, vector<vector<float> > > graphs;
 
 float dist(node n1, node n2);
 void print_node(node &p);
+//int gettimeofday (struct timeval *tp, NULL);
 
 node deposito;
 
@@ -409,25 +411,68 @@ void tspAux(int grafoA)
   ending(camino, costoLocal,re, c_b);
 }
 
-int main()
+int main(void)
 {
+  struct timeval ti, tf;
+  double tiempo;
+  gettimeofday(&ti, NULL);   // Instante inicial
+
+  /*gettimeofday(&tf, NULL);   // Instante final
+  tiempo= (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
+  printf("Has tardado: %g milisegundos\n", tiempo);*/
+
+
+
+  //tomar tiempo lectura y creacion de vectores
+  //gettimeofday(&ti, NULL);  
   readInput();
+  //gettimeofday(&tf, NULL);
+  //tiempo= (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
+  //printf("tiempo de lectura: %g milisegundos\n", tiempo);
+
+  
+  //tiempo en divisio  de regiones
+  //gettimeofday(&ti, NULL);  
   c_regions();
+  //gettimeofday(&tf, NULL);   // Instante final
+  //tiempo= (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
+  //printf("division: %g milisegundos\n", tiempo);
+
+  //tiempo en creacion de grafos
+  //gettimeofday(&ti, NULL);  
   vgraph();
+  gettimeofday(&tf, NULL);
+  tiempo= (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
+  printf("creacion de grafos: %g milisegundos\n", tiempo);
+
+
+
+  //tiempo de recorrido de cada region
+  gettimeofday(&ti, NULL);
   for(map<int, vector<vector<float> > >::iterator it = graphs.begin(); it != graphs.end(); it++)
     {
       int identifier = it->first;
       tspAux(identifier);
     }
+  gettimeofday(&tf, NULL);
+  tiempo= (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
+  printf("recorrido de cada region: %g milisegundos\n", tiempo);
+
+
+  //imprimir resultados
+  //gettimeofday(&ti, NULL);
   for(int j = 0; j < result.size(); ++j)
     {
-      cout << "Ruta " << j+1 << ": " << endl;
+      //cout << "Ruta " << j+1 << ": " << endl;
       for(int i  = 0; i < result[j].first.size(); i++)
 	{
 	  float time = result[j].first[i].second;
-	  cout << result[j].first[i].first.id << " (" << time <<")"<< endl;
+	  //cout << result[j].first[i].first.id << " (" << time <<")"<< endl;
 	}
-      cout << "costo Local: " << result[j].second << endl << endl;
+      //cout << "costo Local: " << result[j].second << endl << endl;
     }
-  cout << endl << "Costo Total: "<< costoTotal << endl;
+  //cout << endl << "Costo Total: "<< costoTotal << endl;
+  //gettimeofday(&tf, NULL);
+  //tiempo= (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
+  //printf("tiempo TSP: %g milisegundos\n", tiempo);
 }
