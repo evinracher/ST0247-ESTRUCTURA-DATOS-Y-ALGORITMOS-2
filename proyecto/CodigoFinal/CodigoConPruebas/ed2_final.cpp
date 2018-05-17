@@ -1,3 +1,11 @@
+/**
+ * @file ed2_final.cpp
+ * @Author Kevin Parra
+ * @Author Daniel Mesa
+ * @date 16/05/2018
+ * @brief implementacion algoritmo para el ruteo de vehiculos electricos
+ */
+
 #include <bits/stdc++.h>
 
 /**
@@ -5,10 +13,20 @@
    Trabajo en conjunto con Agustin Nieto (input)
 **/
 using namespace std;
+
+
+/**
+ * @brief identificacion de los tipos de nodo de carga
+ */
 enum nodetype
   {
     customer = 'c', station = 's', deposit = 'd'
   };
+
+
+/**
+ * @brief clase que define las caracteristicas de un nodo
+ */
 
 struct node
 {
@@ -22,6 +40,10 @@ struct node
   float cing;
 };
 
+
+/**
+ *funciones de carga y niveles de bateria
+ */
 vector<vector<float> > geses;
 vector<vector<float> > leses;
 
@@ -30,6 +52,8 @@ vector<vector<float> > leses;
    m = # of customers
    u = # of charging stations
 **/
+
+
 vector<pair<vector<pair<node, float> >, float> > result;
 int MAX = 1000000;
 int n, m, u, breaks;
@@ -38,27 +62,54 @@ float st_customer, Q;
 int l, g;
 float costoTotal;
 
+
+/**
+ * @brief calcula la pendiente de carga para un tipo de estacion espesifica
+ * @param tipo de nodo
+ * @return pendiente de carga
+ */
 float calc_charge(int type)
 {
   return geses[type][geses[type].size()-1]/leses[type][leses[type].size()-1];
 }
 
 
+/**
+ * @brief funcion de carga de la bateria
+ * @param pendiente de carga y tiempo
+ * @return nuevo nivel de bateria
+ */
 float charging(float m, float time)
 {
   return m*time;
 }
 
+
+/**
+ * @brief calcula el tiempo que necesita para cargar la bateria 
+ * @param pendiente y nivel requerido
+ * @return tiempo de carga
+ */
 float h_t(float m, float bt)
 {
   return bt/m;
 }
 
+/**
+ * @brief kilometros que puedo conducir con el nivel de bateria actual
+ * @param nivel de bateria
+ * @return kilometros que se pueden conducir
+ */
 float h_km(float level_b)
 {
   return level_b/r;
 }
 
+/**
+ * @brief bateria necesaria para conducir cierto numero de kilometros
+ * @param kilometros a conducir
+ * @return bateria necesaria
+ */
 float h_b(float km)
 {
   return km*r;
@@ -74,6 +125,11 @@ void print_node(node &p);
 
 node deposito;
 
+
+
+/**
+ * @brief lectura del archivo fuente de datos
+ */
 void readInput()
 {
 
@@ -157,6 +213,9 @@ void readInput()
 }
 
 
+/**
+ * @brief division de las regiones por estacion de carga mas cercana a cada nodo y creacion del vector de estaciones de carga
+ */
 void c_regions()
 {
   for(int i = 0; i < nodes.size(); i++)
@@ -192,6 +251,12 @@ void c_regions()
 }
 
 
+
+/**
+ * @brief calcula la distancia entre dos nodos
+ * @param nodo uno y nodo dos
+ * @return distancia entre los nodos
+ */
 float dist(node n1, node n2)
 {
   float x = n2.x-n1.x;
@@ -201,7 +266,11 @@ float dist(node n1, node n2)
   return r;
 }
 
-
+/**
+ * @brief creacion de un grafo de acuerdo al vector pasado como parametro
+ * @param vector de nodos
+ * @return grafo con la distacia entre los nodos
+ */
 vector<vector<float> > grafo(vector<node > rgs)
 {
   vector< vector <float> > graph_a (rgs.size());
@@ -223,7 +292,9 @@ vector<vector<float> > grafo(vector<node > rgs)
   return graph_a;
 }
 
-
+/**
+ * @brief creacion de grafo por cada region y guardadas en un map
+ */
 void vgraph()
 {
   for(map<int, vector<node> >::iterator it = rs.begin(); it != rs.end(); ++it)
@@ -233,6 +304,12 @@ void vgraph()
       graphs[identifier] = grafo(r);
     }
 }
+
+/**
+ * @brief calcula si puedo devolverme con cierto nivel de bateria
+ * @param camino, nivel de bateria
+ * @return booleano que indica si es debido regresar
+ */
 bool can_return(vector<pair<node, float> > camino, float c_b)
 {
   float d_return = dist(nodes[0], camino[camino.size()-1].first);
@@ -244,6 +321,11 @@ bool can_return(vector<pair<node, float> > camino, float c_b)
   return true;
 }
 
+/**
+ * @brief tiempo que me demoro en retornar al primer nodo
+ * @param vector de parejas que representa el camino, nivel de bateria y vector de nodos que repsenta la region actual 
+ * @return tiempo de regreso
+ */
 float return_time(vector<pair<node, float> > camino, float c_b, vector<node> re)
 {
   float d_return = dist(nodes[0], camino[camino.size()-1].first);
@@ -260,6 +342,11 @@ float return_time(vector<pair<node, float> > camino, float c_b, vector<node> re)
     }
 }
 
+
+/**
+ * @brief finaliza un camino y lo agrega al vector de resultados
+ * @param vector de parejas que es el camino, el costo, la region actual, y el nivel de bateria actual
+ */
 void ending(vector<pair<node, float> > camino, float costo, vector<node> re, float c_b)
 {
   if(!can_return(camino, c_b))
@@ -284,6 +371,10 @@ void ending(vector<pair<node, float> > camino, float costo, vector<node> re, flo
   result.push_back(make_pair(camino,costo));
 }
 
+
+/**
+ * @brief calcula el nodo mas cerca al deposito
+ */
 float initial_node(vector<node> re, node charger, vector<bool> visited, float *costoLocal, float *distance, float *c_b)
 {
   (*distance) = dist(nodes[0], re[0]);
@@ -314,6 +405,12 @@ float initial_node(vector<node> re, node charger, vector<bool> visited, float *c
   (*c_b)=(*c_b)-h_b((*distance))+if_char;
   return min;
 }
+
+/**
+ * @brief algoritmo principal que calcula el tiempo de recorrico para una region y el tiempo total para el mapa entero
+ * @param identificador de la region
+ * 
+ */
 void tspAux(int grafoA)
 {   
   float c_b = Q;
@@ -409,6 +506,9 @@ void tspAux(int grafoA)
   ending(camino, costoLocal,re, c_b);
 }
 
+/**
+ * @brief metodo principal donde se invoca la lectura, division por regiones, creacion de grafos, se calcula la solucion y se imprimen los resultados
+ */
 int main()
 {
   readInput();
